@@ -1,0 +1,71 @@
+@page {
+	sheet-size:    A4;
+	margin-top:    1cm;
+	margin-left:   1cm;
+	margin-right:  1cm;
+	margin-bottom: 1cm;
+}
+
+* {
+	margin:  0;
+	padding: 0;
+}
+body {
+	font-size: x-small;
+}
+h2, h3 {
+	margin: 0;
+	padding: 0;	
+}
+.logo, .brasao, .cbmpa {
+	width: 50px;
+}
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 0;
+}
+.borda{
+	border: 1px solid black;
+}
+.linhas td{
+	border-bottom: 1px solid black;
+	line-height: 1em;
+	height: 2em;	
+}
+.grade td {
+	border: 1px solid black;
+	line-height: 1em;
+	height: 2em;
+}	
+.center {
+	text-align: center;
+}
+.obs {
+	border: 1px solid black;
+	line-height: 1em;
+	vertical-align: top;
+	height: 5em;
+}
+.aviso {
+	font-size: x-small;
+	text-align: justify;
+}
+.label {
+	font-weight: bold;
+}
+.dark {
+	text-align: center;
+	font-weight: bold;
+	border: solid black 2px;
+}
+.cut {
+	margin-top: 5mm;
+	padding-top: 5mm;
+	border-top: 1px dashed black;	
+}
+
+.cut table {
+	page-break-inside:avoid;
+}

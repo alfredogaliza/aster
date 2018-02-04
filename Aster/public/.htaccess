@@ -1,0 +1,15 @@
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_flag short_open_tag Off
+php_flag display_errors On
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME}	!-f/d
+RewriteRule ^(\w+)/?$		 				index.php?controller=$1						[L,QSA]
+
+RewriteCond %{REQUEST_FILENAME}	!-f/d
+RewriteRule ^(\w+)/(\w+)/?$ 				index.php?controller=$1&action=$2			[L,QSA]
+
+RewriteCond %{REQUEST_FILENAME}	!-f/d
+RewriteRule ^(\w+)/(\w+)/(-?\d+)/?$	 		index.php?controller=$1&action=$2&id=$3		[L,QSA]

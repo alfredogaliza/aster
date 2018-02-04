@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+include_path=0;/Aster/framework/lib\u00050;/Aster/framework/model\u00050;/Aster/framework/control
+phpVersion=php5.6
+useShortTags=true

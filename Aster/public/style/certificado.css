@@ -1,0 +1,124 @@
+@page {
+	sheet-size: A4;
+	margin-top: 1.5cm;
+	margin-left: 2cm;
+	margin-right: 1cm;
+	margin-bottom: 1cm;
+}
+
+* {
+	margin: 0cm;
+	padding: 0cm;		
+}
+
+
+
+body {
+	text-align: center;
+}
+
+h2, h3 {
+	margin: 0cm 0cm;
+	padding: 0cm;
+}
+
+h2 {
+	margin-top: 5mm;
+}
+
+.qrcode {
+	
+}
+
+.dizeres {
+	margin: 2mm 0mm;
+	text-align: justify;
+}
+
+.notas {
+	margin: 2mm 0mm;	
+	font-size: small;
+	text-align: justify;
+}
+
+.dados {
+	margin-top: 0cm;	
+    border: .1mm solid black;
+    border-radius: 4mm;
+}
+
+.row {
+	margin: 1mm 0cm;
+	padding: 2mm;
+	clear: both;
+    text-align: left;
+}
+
+.obs {
+	
+}
+
+.aprovacoes {
+	font-size: small;
+}
+
+.aprovacoes table {
+	font-size: small;
+	border: .1mm solid black;
+    border-radius: 4mm;
+}
+
+td {
+	font-size: x-small;
+}
+
+th {
+	text-align: left;
+	font-size: small;
+}
+
+.hollow {
+	font-weight: bolder;
+	text-transform: uppercase;
+	font-family: arial;
+}
+
+.center {
+	text-align: center;
+}
+
+.geracao {
+	position: absolute;	
+	bottom: 10mm;
+	left: 20mm;
+	right: 10mm;		
+	text-align: justify;
+	font-size: xx-small;
+}
+
+.w1 {width: 16.666%}
+.w2 {width: 33.333%}
+.w3 {width: 50.000%}
+.w4 {width: 66.667%}
+.w5 {width: 83.333%}
+.w6 {width: 100.00%}
+
+.hollow {
+	font-family: arial;
+	font-color: black;
+	font-weight: bolder;
+	text-shadow: 2px 2px 0px rgba(150, 150, 150, 1);	
+}
+.label {
+	float: left;
+	font-weight: bold;
+}
+
+.value {
+	float: left;
+}
+
+.dark {
+	background-color: gray;
+	color: white;
+}
