@@ -6,10 +6,10 @@ php_flag display_errors On
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME}	!-f/d
-RewriteRule ^(\w+)/?$		 				index.php?controller=$1						[L,QSA]
+RewriteRule ^(\w+)/?$		 			index.php?controller=$1				[L,QSA]
 
 RewriteCond %{REQUEST_FILENAME}	!-f/d
-RewriteRule ^(\w+)/(\w+)/?$ 				index.php?controller=$1&action=$2			[L,QSA]
+RewriteRule ^(\w+)/(\w+)/?$ 				index.php?controller=$1&action=$2		[L,QSA]
 
 RewriteCond %{REQUEST_FILENAME}	!-f/d
 RewriteRule ^(\w+)/(\w+)/(-?\d+)/?$	 		index.php?controller=$1&action=$2&id=$3		[L,QSA]

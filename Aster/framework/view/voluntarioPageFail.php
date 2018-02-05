@@ -38,6 +38,8 @@
 			Usuário/Senha não encontrado!
 			<?php elseif ($this->msg == 'email'): ?>
 			Email não encontrado!
+			<?php elseif ($this->msg == 'mailer'): ?>
+			Erro na configuração de Email! Contate o administrador!
 			<?php endif; ?>
 		</div>
 		<br>

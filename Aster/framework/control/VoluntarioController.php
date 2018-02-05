@@ -20,6 +20,7 @@ class VoluntarioController extends Controller {
 	
 	public function actionCadastrar(){
 		
+		$nome = Globals::post('nome');
 		$email = Globals::post('email1');
 		$cpf = Globals::post('cpf');
 		
@@ -29,7 +30,7 @@ class VoluntarioController extends Controller {
 			return true;
 		}
 		
-		$senha = md5(rand());
+		$senha = strtoupper(md5(rand()));
 		
 		$this->voluntario = Model::load("voluntario", $_POST);		
 		$this->voluntario->set('id', NULL);
@@ -40,8 +41,23 @@ class VoluntarioController extends Controller {
 		$this->voluntario->set('confirmacao', 1);
 		
 		if ($this->voluntario->create()){		
-			//TODO: Enviar email com link para ativação do cadastro
-			$this->setView('voluntarioPageSuccess');
+			
+			$link = "<a href='".Controller::route(
+					'voluntario',
+					'recuperar',
+					$this->voluntario->get('id'),
+					['q'=>$senha])."'>Link para confirmação de cadastro</a>";
+			
+			$mailer = new Mail([$nome=>$email], $link);
+			
+			if ($mailer->send()){
+				echo $link;
+				$this->setView('voluntarioPageSuccess');
+			} else {
+				$this->msg = "mailer";
+				$this->setView('voluntarioPageFail');
+			}
+			
 		} else {
 			$this->msg = "erro";
 			$this->setView('voluntarioPageFail');
@@ -56,23 +72,40 @@ class VoluntarioController extends Controller {
 		return true;
 	}
 	
-	public function actionEmail(){
+	public function actionEmail(){		
 		
 		Session::destroy();
 		
 		$email = Globals::post('email');
 		if ($voluntarios = Usuario::getAll('',"email='$email' LIMIT 1")){
-
+			
 			$this->voluntario = $voluntarios[0];
 			
-			$senha = md5(rand());			
+			$nome=$this->voluntario->get('nome');
+			$email=$this->voluntario->get('email');
+
+			//$senha = strtoupper(md5(rand()));
+			$senha = $this->voluntario->get('senha');
+						
 			$this->voluntario->set('senha', $senha);
 			$this->voluntario->set('confirmacao', 1);
 			$this->voluntario->update();
 
-			//TODO: Enviar email com link de recuperação de senha
+			$link = "<a href='".Controller::route(
+					'voluntario',
+					'recuperar',
+					$this->voluntario->get('id'),
+					['q'=>$senha])."'>Link para confirmação de cadastro</a>";
 			
-			$this->setView('voluntarioPageSuccess');
+			$mailer = new Mail([$nome=>$email], 'Confirmação de Cadastro', $link);
+			
+			if ($mailer->send()){
+				$this->setView('voluntarioPageSuccess');
+			} else {
+				$this->msg = "mailer";
+				$this->setView('voluntarioPageFail');
+			}
+								
 		} else {
 			$this->msg = "email";
 			$this->setView('voluntarioPageFail');
