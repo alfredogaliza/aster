@@ -19,27 +19,35 @@ class Session {
 		return true;
 	}
 	
-	public static function get($key){
-		if (self::isStarted() && isset($_SESSION[$key])){
-			return $_SESSION[$key];
-		} else {
-			return null;
+	public static function get($key, $default = NULL){
+		if (self::isStarted()){
+			if (isset($_SESSION[$key]))
+				return $_SESSION[$key];
+			else {
+				self::set($key, $default);				
+			}
 		}
+		return $default;
 	}
 	
-	public static function getUsuario($field = false){
-		if ($usuario = self::get('usuario'))
+	public static function getVoluntario($field = false){
+		if ($usuario = self::get('voluntario'))
 			return $field? $usuario->get($field) : $usuario;
 		else
-			return $field? NULL : new Usuario;
+			return $field? NULL : new Voluntario;
 	}
 	
-	public static function setUsuario($usuario){
-		self::set('usuario', $usuario);
+	public static function setVoluntario($voluntario){
+		self::set('voluntario', $voluntario);
 	}
 	
 	public static function isStarted(){
 		return session_id() || false;
+	}
+	
+	public static function restart(){
+		self::destroy();
+		session_start();
 	}
 	
 	public static function destroy(){

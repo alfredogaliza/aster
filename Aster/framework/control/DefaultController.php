@@ -10,7 +10,7 @@ class DefaultController extends Controller {
 	}
 	
 	public function actionDefault() {
-		if (Session::getUsuario('id')) {
+		if (Session::getVoluntario('id')) {
 			Controller::dispatch("home");
 			return false;
 		} else {			

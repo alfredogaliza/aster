@@ -1,24 +1,27 @@
-<nav class="navbar navbar-default navbar" id='menu-top'>
+<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
- 			<a class="navbar-brand" href="<?php echo Controller::route("home", "default")?>">
-				<?php echo Config::SYS_SIGLA?>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Menu</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<?= Controller::route('home')?>"> <img height=100% class="" src="<?= Controller::route('image', 'mini-logo.png')?>" />
 			</a>
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar" style="border:solid white 1px"></span>
-				<span class="icon-bar" style="border:solid white 1px"></span>
-				<span class="icon-bar" style="border:solid white 1px"></span>
-			</button> 			
+			<div class="navbar-text">Instituto Áster</div>
 		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<div class="navbar-text"><?php echo Config::SYS_TITULO?></div>
+		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a class="navbar-brand" href="<?php echo Controller::route("login", "logoff")?>">
-						<span class="glyphicon glyphicon-off"></span> Sair
-					</a>
-				</li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"></i>
+							<?= Session::getVoluntario('nome')?>
+							<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><i class="fa fa-user-circle-o"></i> Dados pessoais</a></li>
+						<li><a href="#"><i class="fa fa-history"></i> Histórico</a></li>
+						<li><a href="#"><i class="fa fa-comments"></i> Mensagens</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#"><i class="fa fa-sign-out"></i> Sair</a></li>
+					</ul></li>
 			</ul>
-		</div>		
+		</div>
 	</div>
 </nav>

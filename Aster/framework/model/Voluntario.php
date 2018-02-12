@@ -1,6 +1,6 @@
 <?php
 
-class Usuario extends Model {
+class Voluntario extends Model {
 
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
@@ -14,6 +14,13 @@ class Usuario extends Model {
 	public function getPerfil($field = false){
 		$perfil = new Perfil($this->get('perfil_id'));
 		return $field? $perfil->get($field) : $perfil;
+	}
+	
+	public function hasAcao($id, $default = false){
+		$voluntario_id = $this->get('id');
+		return 
+			Model::getAllRowsSQL("SELECT 1 FROM voluntario_acao WHERE voluntario_id = '$voluntario_id' AND acao_id = '$id'")
+			|| $default;
 	}
 	
 	public function getMenus(){
@@ -70,6 +77,10 @@ class Usuario extends Model {
 				return true;
 		}
 		return false;
+	}
+	
+	public function updateAcoes($ids = []){
+		return $this->updateRelationships('voluntario_acao', 'voluntario_id', 'acao_id', $ids);	
 	}
 	
 	public function checkPermission($controller, $action){

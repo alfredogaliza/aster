@@ -27,8 +27,8 @@ class LoginController extends Controller {
 		$senha = strtoupper(md5(Globals::post('senha')));
 		
 		
-		if ($usuario = Usuario::logon($email, $senha)){
-			Session::set('usuario', $usuario);
+		if ($voluntario = Voluntario::logon($email, $senha)){
+			Session::setVoluntario($voluntario);
 			Controller::dispatch("home");
 			return false;
 		} else {			

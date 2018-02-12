@@ -21,8 +21,12 @@
 		<title><?php echo Config::SYS_SIGLA?> - <?php echo Config::SYS_TITULO?></title>
 		<style>
 		.required:after {
-				content: "*";
-				color: red;
-				font-weight: bold;
+			content: "*";
+			color: red;
+			font-weight: bold;
+		}
+		.container {
+			margin-top: 10px;
+			padding: 10px 15px;
 		}
 		</style>

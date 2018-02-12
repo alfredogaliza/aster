@@ -3,117 +3,221 @@
 
 class VoluntarioController extends Controller {
 	
-	public $id = NULL;
+	const ERRO_DUPLICIDADE 	= 1;
+	const ERRO_GERAL 		= 2;
+	const ERRO_RECUPERACAO 	= 3;
+	const ERRO_EMAIL 		= 4;
+	const ERRO_MAILER 		= 5;
+	const ERRO_CONFIRMACAO	= 6;
+		
+	const OK_CONFIRMADO			= 1;
+	const OK_ALTERADO			= 2;
+	const OK_CADASTRADO			= 3;
+	const OK_EMAIL_CADASTRO		= 4;
+	const OK_EMAIL_RECUPERACAO 	= 5;	
 	
+	public $id = NULL;	
+	
+	/**
+	 * Construtor do controlador
+	 * @param unknown $action
+	 */
 	public function __construct($action){
 		parent::__construct("voluntario", $action);
 		Session::start();
 
-		$this->id = Globals::get('id');		
+		$this->id = Globals::get('id');
+		$this->title = "";
+		$this->msg = "";		
 	}
 	
+	/**
+	 * Exibe a página de falha, de acordo com o parâmetro id de Erro
+	 * @return boolean
+	 */
+	public function actionFail(){
+		switch ($this->id){
+			case  self::ERRO_DUPLICIDADE:
+				$this->msg = "O CPF ou email informado já se encontra em nosso sistema!";
+				$this->title = "Duplicidade no cadastro";
+				break;
+			case self::ERRO_GERAL:
+				$this->msg = "Ocorreu um erro em nossos registros. Por favor, tente mais tarde!";
+				$this->title = "Erro cadastro de voluntário";
+				break;
+			case self::ERRO_RECUPERACAO:
+				$this->msg = "Usuário/Senha não encontrado!";
+				$this->title = "Erro na recuperação de senha";
+				break;
+			case self::ERRO_CONFIRMACAO:
+				$this->msg = "Erro na confirmação do Usuário";
+				$this->title = "Erro na recuperação de senha";
+				break;
+			case self::ERRO_EMAIL:
+				$this->msg = "Email não encontrado!";
+				$this->title = "Erro na recuperacao de senha";
+				break;
+			case self::ERRO_MAILER:
+				$this->msg = "Erro na configuração de Email! Contate o administrador!";
+				$this->title = "Erro no envio de Email";
+				break;
+			default:
+				$this->msg = "É tudo o que sabemos.";
+				$this->title = "Erro no processamento!";
+				break;
+		}
+		
+		$this->setView("falhaPage");
+		return true;
+					
+	}
 	
+	/**
+	 * Exibe a página de sucesso com os parâmetros de acordo com o id de OK
+	 * @return boolean
+	 */
+	public function actionSuccess(){
+		
+		switch ($this->id){
+			case self::OK_CADASTRADO:
+				$email = Session::get('email');
+				$this->msg = "Enviamos uma mensagem para $email. Acesse sua caixa de entrada e clique no link de confirmação";
+				$this->title = "Cadastro recebido com sucesso";
+				break;
+			case self::OK_EMAIL_RECUPERACAO:
+				$email = Session::get('email');
+				$this->msg = "Enviamos uma mensagem para $email. Acesse sua caixa de entrada e clique no link de confirmação";
+				$this->title = "Recuperação de senha solicitada";
+				break;
+			default:
+				break;
+		}
+		$this->setView('sucessoPage');
+		return true;
+	}	
+	
+	/**
+	 * Exibe o formulário de Cadastro de Voluntário
+	 * @return boolean
+	 */
 	public function actionCadastro(){
-		$this->setView('voluntarioForm');
+		$this->voluntario = Session::get('voluntario', new Usuario());
+		$this->setView('cadastroForm');
 		return true;
 	}
 	
-	public function actionCadastrar(){
+	/**
+	 * Recebe o formulário de cadastro de voluntário e grava as informações
+	 * @return boolean
+	 */
+	public function actionCadastrarNovo(){
 		
-		$nome = Globals::post('nome');
+		$nome = strtoupper(Globals::post('nome'));
 		$email = Globals::post('email1');
 		$cpf = Globals::post('cpf');
 		
-		if (Model::getAll('voluntario', "cpf='$cpf' OR email='$email'")){
-			$this->msg = "duplicidade";
-			$this->setView('voluntarioPageFail');
-			return true;
-		}
-		
 		$senha = strtoupper(md5(rand()));
 		
-		$this->voluntario = Model::load("voluntario", $_POST);		
-		$this->voluntario->set('id', NULL);
+		$this->voluntario = new Usuario($id);
+		$this->voluntario->setAttrs($_POST);
+				
 		$this->voluntario->set('perfil_id', Perfil::ID_VOLUNTARIO);
+		$this->voluntario->set('nome', $nome);
 		$this->voluntario->set('email', $email);
 		$this->voluntario->set('data_nascimento', Globals::postDate('data_nascimento'));
 		$this->voluntario->set('senha', $senha);
-		$this->voluntario->set('confirmacao', 1);
+		$this->voluntario->set('confirmado', 0);
 		
-		if ($this->voluntario->create()){		
+		if ($this->voluntario->create()){
+
+			$this->voluntario->updateAcoes(Globals::post('acao_id', []));
 			
 			$link = "<a href='".Controller::route(
 					'voluntario',
-					'recuperar',
+					'confirmar',
 					$this->voluntario->get('id'),
 					['q'=>$senha])."'>Link para confirmação de cadastro</a>";
 			
-			$mailer = new Mail([$nome=>$email], $link);
+			Session::set('email', $email);
+			$mailer = new Mail([$nome=>$email], "[Instituto Áster] Confirmação de Cadastro", $link);
 			
-			if ($mailer->send()){
-				echo $link;
-				$this->setView('voluntarioPageSuccess');
-			} else {
-				$this->msg = "mailer";
-				$this->setView('voluntarioPageFail');
+			Session::set('voluntario', $this->voluntario);
+			
+			if ($mailer->send()){				
+				self::dispatch('voluntario', 'success', self::OK_CADASTRADO);
+			} else {				
+				self::dispatch('voluntario', 'fail', self::ERRO_MAILER);
 			}
 			
 		} else {
-			$this->msg = "erro";
-			$this->setView('voluntarioPageFail');
+			Session::set('voluntario', $this->voluntario);
+			self::dispatch('voluntario', 'fail', self::ERRO_GERAL);
 		}
 		
-		return true;
+		return false;
 		
 	}
 	
+	/**
+	 * Exibe o modal com o formulário para inserção do email de recuperação de senha
+	 * @return boolean
+	 */
 	public function actionRecuperacao(){
 		$this->setView('recuperacaoModal');
 		return true;
 	}
 	
-	public function actionEmail(){		
+	/**
+	 * Recebe o valor do email para recuperação de senha e realiza o envio do link
+	 * @return boolean
+	 */
+	public function actionEmailRecuperacao(){		
 		
-		Session::destroy();
+		Session::restart();
 		
 		$email = Globals::post('email');
+		
 		if ($voluntarios = Usuario::getAll('',"email='$email' LIMIT 1")){
 			
 			$this->voluntario = $voluntarios[0];
 			
-			$nome=$this->voluntario->get('nome');
-			$email=$this->voluntario->get('email');
+			$nome = $this->voluntario->get('nome');
+			$email = $this->voluntario->get('email');
 
 			//$senha = strtoupper(md5(rand()));
 			$senha = $this->voluntario->get('senha');
 						
 			$this->voluntario->set('senha', $senha);
-			$this->voluntario->set('confirmacao', 1);
+			$this->voluntario->set('confirmado', 0);
 			$this->voluntario->update();
 
 			$link = "<a href='".Controller::route(
 					'voluntario',
-					'recuperar',
+					'recuperarSenha',
 					$this->voluntario->get('id'),
-					['q'=>$senha])."'>Link para confirmação de cadastro</a>";
+					['q'=>$senha])."'>Link para Recuperação de Senha</a>";
 			
-			$mailer = new Mail([$nome=>$email], 'Confirmação de Cadastro', $link);
+			$mailer = new Mail([$nome=>$email], '[Insitituto Áster] Recuperação de Senha', $link);
 			
 			if ($mailer->send()){
-				$this->setView('voluntarioPageSuccess');
+				Session::set('email', $email);
+				self::dispatch('voluntario', 'success', self::OK_EMAIL_RECUPERACAO);
 			} else {
-				$this->msg = "mailer";
-				$this->setView('voluntarioPageFail');
+				//self::dispatch('voluntario', 'fail', self::ERRO_MAILER);
 			}
 								
 		} else {
-			$this->msg = "email";
-			$this->setView('voluntarioPageFail');
+			self::dispatch('voluntario', 'fail', self::ERRO_EMAIL);
 		}
-		return true;
+		
+		return false;
 	}
 	
-	public function actionRecuperar(){
+	/**
+	 * Confirma o link de confirmação e apresenta o formulário de alteração de senha
+	 * @return boolean
+	 */
+	public function actionRecuperarSenha(){
 		
 		Session::destroy();
 		Session::start();
@@ -121,28 +225,54 @@ class VoluntarioController extends Controller {
 		$id = Globals::get('id');
 		$senha = strtoupper(Globals::get('q'));		
 		
-		if ($voluntarios = Usuario::getAll('',"id='$id' AND senha=UPPER('$senha') AND confirmacao")){
+		if ($voluntarios = Usuario::getAll('',"id='$id' AND senha=UPPER('$senha') AND NOT confirmado")){
 			$this->voluntario = $voluntarios[0];			
 			Session::set('usuario', $this->voluntario);							
 			$this->setView('senhaForm');
+			return true;
 		} else {
-			$this->msg = "recuperacao";
-			$this->setView("voluntarioPageFail");
+			self::dispatch('voluntario', 'fail', self::ERRO_RECUPERACAO);
+			return false;
 		}
-		
-		return true;
+				
+	}
+
+	/**
+	 * Confirma o link de confirmação e apresenta o formulário de alteração de senha
+	 * para primeiro cadastro
+	 * @return boolean
+	 */
+	public function actionConfirmar(){
+	
+		Session::destroy();
+		Session::start();
+	
+		$id = Globals::get('id');
+		$senha = Globals::get('q');
+	
+		if ($voluntarios = Usuario::getAll('',"id='$id' AND senha='$senha' AND confirmado = 0 LIMIT 1")){
+			Session::setUsuario($voluntarios[0]);
+			$this->setView('senhaForm');
+			return true;
+		} else {
+			self::dispatch('voluntario', 'fail', self::ERRO_CONFIRMACAO);
+			return false;
+		}
+	
 	}	
 	
-	public function actionNovasenha(){
+	/**
+	 * Altera a senha do usuário atual e encaminha para realizar um novo login
+	 * @return boolean
+	 */
+	public function actionNovaSenha(){
 		
 		$senha = Globals::post('senha1');
 		
-		$usuario = Session::getUsuario();
-		$usuario->read();
-		
+		$usuario = Session::getUsuario();		
 			
 		$usuario->set('senha', strtoupper(md5($senha)));
-		$usuario->set('confirmacao', 0);
+		$usuario->set('confirmado', 1);
 		$usuario->update();
 	
 		Controller::dispatch('login', 'logoff', NULL, array('msg'=>'senha'));
@@ -161,12 +291,6 @@ class VoluntarioController extends Controller {
 		Controller::dispatch("cadastro", "usuario", NULL, array('msg'=>'success'));
 		return false;
 	}
-	
-	public function actionReset(){
-		$this->usuario->reset();		
-		Controller::dispatch("cadastro", "usuario", NULL, array("msg"=>'success'));
-		return false;
-	}	
 	
 	public function actionGravar(){
 		if (!$_POST['id']) $_POST['senha'] = md5("12345");	

@@ -2,48 +2,55 @@
 
 class AdminController extends Controller {
 	
-	public $msg   = "";
-
-	
-	public function __construct($action){
-		
+	public function __construct($action){		
 		parent::__construct("admin", $action);
-		Session::start();
-		
-		$this->msg = Globals::get('msg');
-		
+		Session::start();		
 	}
-		
 	
-	public function actionBairro(){
-		
-		$cidade_id = Globals::get('cidade_id');
-		$nome = Globals::get('nome');
-		
-		$cidade = $cidade_id? "cidade_id = '$cidade_id'" : "TRUE";
-		$filter = "nome LIKE '%$nome%' AND $cidade ORDER BY cidade_nome, nome";
-				
-		$this->bairros = Model::getAll("lista_bairro", $filter);
-		$this->setView("bairro");
+	public function actionVoluntario(){
+		$this->setView("listVoluntario");
 		return true;
-	}	
+	}
 	
-	public function actionPolo(){
-		$this->polos = Polo::getAll('polo', 'ativo');		
-		$this->setView("polo");
+	public function actionAssistido(){
+		$this->setView("listAssistido");
+		return true;
+	}
+	
+	public function actionResponsavel(){
+		$this->setView("listResponsavel");
+		return true;
+	}
+	
+	public function actionAcao(){
+		$this->setView("listAcao");
+		return true;
+	}
+	
+	public function actionEvento(){
+		$this->setView("listEvento");
+		return true;
+	}
+	
+	public function actionTarefa(){
+		$this->setView("listTarefa");
 		return true;
 	}
 	
 	public function actionPerfil(){
-		$this->perfis = Perfil::getAll();				
-		$this->setView("perfil");
+		$this->setView("listPerfil");
 		return true;
 	}
 	
-	public function actionRecurso(){
-		$this->recursos = Recurso::getAll("", "TRUE ORDER by menu_id, ordem");				
-		$this->setView("recurso");
+	public function actionNoticia(){
+		$this->setView("listNoticia");
 		return true;
 	}
+	
+	public function actionRelatorio(){
+		$this->setView("listRelatorio");
+		return true;
+	}
+		
 	
 }

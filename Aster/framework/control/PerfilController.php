@@ -1,7 +1,4 @@
 <?php
-require_once 'lib/Controller.php';
-require_once 'lib/Session.php';
-require_once 'model/Perfil.php';
 
 class PerfilController extends Controller {
 
@@ -12,7 +9,7 @@ class PerfilController extends Controller {
 		parent::__construct("perfil", $action);
 		Session::start();	
 		
-		$this->id = isset($_GET['id'])? $_GET['id'] : NULL;
+		$this->id = Globals::get('id');
 		$this->perfil = new Perfil($this->id);		
 	}
 	
@@ -27,14 +24,14 @@ class PerfilController extends Controller {
 	}
 	
 	public function actionGravar(){
-		$id = isset($_POST['id'])? $_POST['id'] : NULL;
-		$descricao = isset($_POST['descricao'])? $_POST['descricao'] : "";
-		$recursos  = isset($_POST['recurso_id'])? $_POST['recurso_id'] : array(); 
+		$id          = Globals::post('id');
+		$descricao   = Globals::post('descricao');
+		$recurso_ids = Globals::post('recurso_id', []); 
 		
 		$this->perfil = new Perfil($id);
 		$this->perfil->set('descricao', $descricao);
 		$this->perfil->update();
-		$this->perfil->updateRecursos($recursos);		
+		$this->perfil->updateRecursos($recurso_ids);		
 		
 		Controller::dispatch("admin", "perfil", 0, array("msg"=>"success")) ;
 		return false;

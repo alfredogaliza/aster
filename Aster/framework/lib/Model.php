@@ -13,6 +13,23 @@ class Model {
 		if ($read) $this->read();
 	}
 	
+	public function updateRelationships($nnTable, $myField, $hisField, $hisIds = []){
+	
+		$myId = $this->get('id');
+		$sql = "DELETE FROM $nnTable WHERE $myField = '$myId'";
+		Connection::query($sql);
+	
+		$values = [];
+		foreach ($hisIds as $hisId) $values[] = "('$myId','$hisId')";
+		$values = implode(", ", $values);
+			
+		$sql = "INSERT INTO $nnTable($myField, $hisField) VALUES $values";
+		Connection::query($sql);
+		
+		return true;
+	
+	}
+	
 	public function getAttrs(){
 		return $this->attrs;
 	}
@@ -118,6 +135,16 @@ class Model {
 		if ($field == 'id') $this->id = $value;
 		$this->attrs[$field] = $value;
 		return $this;
+	}
+	
+	public function setAttrs($attrs = []){
+		
+		$keys = [];
+		Connection::query("DESCRIBE {$this->table}");
+		while ($row = Connection::next(false)) $keys[] = $row[0];
+		
+		foreach ($attrs as $key => $value)
+			if (in_array($key, $keys)) $this->set($key, $value);
 	}
 	
 	

@@ -33,18 +33,18 @@
 						<img src="<?php Config::baseURL()?>/image/logo.jpg" />
 					</div>
 				</div>
-				<form action="<?= Controller::route("voluntario", "novasenha")?>" method="POST">
+				<form action="<?= Controller::route("voluntario", "novaSenha")?>" method="POST">
 					<div class="row form-group">
 						<div class="col-md-12">
 							<h2>Cadastro de nova senha</h2>
 							<div class="row form-group">
 								<div class="col-md-12">
-									<input id="senha1" autocomplete="off" value="" name="senha2" class="form-control" required type="password" placeholder="Digite sua nova senha" />
+									<input id="senha1" autocomplete="off" value="" name="senha1" class="form-control" required type="password" placeholder="Digite sua nova senha" />
 								</div>
 							</div>
 							<div class="row form-group">
 								<div class="col-md-12">
-									<input id="senha2" autocomplete="off" value="" name="senha1" class="form-control" required type="password" placeholder="Digite novamente" />
+									<input id="senha2" autocomplete="off" value="" name="senha2" class="form-control" required type="password" placeholder="Digite novamente" />
 								</div>
 							</div>
 							<div class="row form-group">

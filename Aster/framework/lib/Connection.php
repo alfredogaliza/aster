@@ -2,7 +2,8 @@
 
 class Connection {
 		
-	private static $host = "aster.mysql.uhserver.com";
+	//private static $host = "aster.mysql.uhserver.com";
+	private static $host = "localhost";
 	private static $user = "bdaster";
 	private static $pass = "1careca@";
 	private static $base = "aster";
