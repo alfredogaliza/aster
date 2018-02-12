@@ -101,7 +101,7 @@ class VoluntarioController extends Controller {
 	 * @return boolean
 	 */
 	public function actionCadastro(){
-		$this->voluntario = Session::get('voluntario', new Usuario());
+		$this->voluntario = Session::getVoluntario();
 		$this->setView('cadastroForm');
 		return true;
 	}
@@ -118,7 +118,7 @@ class VoluntarioController extends Controller {
 		
 		$senha = strtoupper(md5(rand()));
 		
-		$this->voluntario = new Usuario($id);
+		$this->voluntario = new Voluntario($id);
 		$this->voluntario->setAttrs($_POST);
 				
 		$this->voluntario->set('perfil_id', Perfil::ID_VOLUNTARIO);
@@ -177,7 +177,7 @@ class VoluntarioController extends Controller {
 		
 		$email = Globals::post('email');
 		
-		if ($voluntarios = Usuario::getAll('',"email='$email' LIMIT 1")){
+		if ($voluntarios = Voluntario::getAll('',"email='$email' LIMIT 1")){
 			
 			$this->voluntario = $voluntarios[0];
 			
@@ -225,7 +225,7 @@ class VoluntarioController extends Controller {
 		$id = Globals::get('id');
 		$senha = strtoupper(Globals::get('q'));		
 		
-		if ($voluntarios = Usuario::getAll('',"id='$id' AND senha=UPPER('$senha') AND NOT confirmado")){
+		if ($voluntarios = Voluntario::getAll('',"id='$id' AND senha=UPPER('$senha') AND NOT confirmado")){
 			$this->voluntario = $voluntarios[0];			
 			Session::set('usuario', $this->voluntario);							
 			$this->setView('senhaForm');
@@ -250,8 +250,8 @@ class VoluntarioController extends Controller {
 		$id = Globals::get('id');
 		$senha = Globals::get('q');
 	
-		if ($voluntarios = Usuario::getAll('',"id='$id' AND senha='$senha' AND confirmado = 0 LIMIT 1")){
-			Session::setUsuario($voluntarios[0]);
+		if ($voluntarios = Voluntario::getAll('',"id='$id' AND senha='$senha' AND confirmado = 0 LIMIT 1")){
+			Session::setVoluntario($voluntarios[0]);
 			$this->setView('senhaForm');
 			return true;
 		} else {
@@ -269,7 +269,7 @@ class VoluntarioController extends Controller {
 		
 		$senha = Globals::post('senha1');
 		
-		$usuario = Session::getUsuario();		
+		$usuario = Session::getVoluntario();		
 			
 		$usuario->set('senha', strtoupper(md5($senha)));
 		$usuario->set('confirmado', 1);
