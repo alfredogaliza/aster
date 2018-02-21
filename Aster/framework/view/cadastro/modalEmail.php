@@ -6,7 +6,7 @@
 				<h4 class="modal-title">Recuperação de Senha</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="form" method="post" action="<?= Controller::route("voluntario", "emailRecuperacao")?>">					
+				<form class="form-horizontal" id="form" method="post" action="<?= Controller::route("cadastro", "emailRecuperacao")?>">					
 					<div class="form-group">
 						<label class="col-md-12">Email Cadastrado</label>
 						<div class="col-md-12">

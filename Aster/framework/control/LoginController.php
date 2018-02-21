@@ -17,7 +17,7 @@ class LoginController extends Controller {
 
 	public function actionLogoff(){
 		Session::destroy();		
-		$this->setView("loginForm");
+		$this->setView("login/form");
 		return true;	
 	}
 
@@ -33,7 +33,7 @@ class LoginController extends Controller {
 			return false;
 		} else {			
 			$this->msg = "fail";
-			$this->setView("loginForm");
+			$this->setView("login/form");
 			return true;
 		}	
 		

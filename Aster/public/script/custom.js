@@ -38,6 +38,7 @@ function init(event){
 	
 	$('.dateyear', parent).datetimepicker($.extend(datetimepicker_options, {format: 'YYYY'}));
 	$('.date', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM/YYYY'}));
+	$('.birthday', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM'}));
 	$('.date.end', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM/YYYY',useCurrent: false}));
 	$('.datetime', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM/YYYY HH:mm', sideBySide:true}));
 	$('.datetime.end', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM/YYYY HH:mm', sideBySide:true, useCurrent: false}));
@@ -97,7 +98,8 @@ function init(event){
 	);
 }
 
-$(function(){
+$(function(){	
+	
 	$(this).on("click", ".confirm", function(event){
 		if (confirm("Essa ação não poderá ser desfeita! Confirma a ação?")){
 			return true;
@@ -113,9 +115,11 @@ $(function(){
 
 	$(this).on("click", ".async", function(event){
 		event.preventDefault();
-		var href = $(this).attr("data-href");
+		var href = $(this).attr("href")? $(this).attr("href") : $(this).attr("data-href");
+		var pagination = $(this).attr('data-pagination');
 		$.ajax(href).done(function(){
-			location.reload();
+			if (pagination != '') $('.active', pagination).click();
+			else location.reload();
 		});
 	});
 	
@@ -139,7 +143,7 @@ $(function(){
 		return true;
 	});
 	
-	$(this).one("submit", ".form-async", function(e){
+	$(this).on("submit", ".form-async", function(e){
 		
 		e.preventDefault();
 		
@@ -149,9 +153,15 @@ $(function(){
 		$.post(
 				$(this).attr('action'),
 				$(this).serialize(),
-				function(){				
-					location.reload(true);
-					$("#modal").modal("hide");
+				function(response){
+					if (response == ""){
+						location.reload(true);
+						$("#modal").modal("hide");
+					} else {
+						console.log(response);
+					}
+					$("button[type='submit']", this).html("<i class='fa fa-refresh'></i> Tentar Novamente").prop("disabled", false);
+					$("input[type='submit']", this).val("Tentar Novamente").prop("disabled", true);
 				}
 			);
 		

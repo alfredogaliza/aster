@@ -19,27 +19,18 @@ class Mail extends PHPMailer{
 		$this->SMTPDebug = 2;
 		
 		$this->IsSMTP();
-		$this->Timeout = 10;		
-		//$this->SMTPSecure  = 'tls';
+		$this->Timeout = 10;
 		$this->Charset = 'utf8_decode()';
 		
 		$this->Port  = '587';
 		
 		// Dados do UOL
 		$this->SMTPAuth  = true;
-		$this->Host  = 'smtp.uhserver.com';
-		//$this->Username  = 'no-reply@institu117.dominiotemporario.com';
-		$this->Username  = 'no-reply@institu117.dominiotemporario.com';
+		$this->Host  = 'smtp.app.institutoaster.org.br';
+		$this->Username  = 'admin@app.institutoaster.org.br';
 		$this->Password  = '1Careca@';
-		$this->From  = 'no-reply@institu117.dominiotemporario.com';
-		
-		/*Dados do GMail
-		$this->SMTPAuth  = true;
-		$this->Host  = 'smtp.gmail.com';
-		$this->Username  = 'alfredogaliza@gmail.com';
-		$this->Password  = 'luizluiz';
-		$this->From  = 'alfredogaliza@gmail.com';
-		*/
+		$this->From  = 'admin@app.institutoaster.org.br';
+				
 		$this->FromName  = utf8_decode('Instituto Áster');		
 		$this->Subject  = utf8_decode($assunto);
 		$this->Body  = utf8_decode($mensagem);

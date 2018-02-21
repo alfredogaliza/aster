@@ -1,14 +1,36 @@
 <?php
 
 class Voluntario extends Model {
-
+	
+	const STATUS_OK = 1;
+	const STATUS_BLOCK = 2;
+	const STATUS_CONFIRM = 3;
+	const STATUS_NOTEFFECTIVE = 4;
+	
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
 	}	
 	
-	public function reset(){
-		$this->set("senha", strtoupper(md5("12345")));
-		$this->update();		
+	public function getStatus(){
+		if ($this->get('ativo') && $this->get('confirmado') && $this->get('evento_id'))
+			return self::STATUS_OK;
+		else if ($this->get('ativo') && $this->get('confirmado') && !$this->get('evento_id'))
+			return self::STATUS_NOTEFFECTIVE;
+		else if (!$this->get('ativo'))
+			return self::STATUS_BLOCK;
+		else
+			return self::STATUS_CONFIRM;
+	}
+	
+	public function getStatusClass(){
+		$classes = [
+				self::STATUS_OK => "bg-success",
+				self::STATUS_BLOCK => "bg-danger",
+				self::STATUS_CONFIRM => "bg-warning",
+				self::STATUS_NOTEFFECTIVE => "bg-info"
+		];
+		
+		return $classes[$this->getStatus()];
 	}
 
 	public function getPerfil($field = false){

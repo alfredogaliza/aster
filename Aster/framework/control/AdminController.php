@@ -7,49 +7,14 @@ class AdminController extends Controller {
 		Session::start();		
 	}
 	
-	public function actionVoluntario(){
-		$this->setView("listVoluntario");
-		return true;
-	}
-	
-	public function actionAssistido(){
-		$this->setView("listAssistido");
-		return true;
-	}
-	
-	public function actionResponsavel(){
-		$this->setView("listResponsavel");
-		return true;
-	}
-	
-	public function actionAcao(){
-		$this->setView("listAcao");
-		return true;
-	}
-	
-	public function actionEvento(){
-		$this->setView("listEvento");
-		return true;
-	}
-	
-	public function actionTarefa(){
-		$this->setView("listTarefa");
-		return true;
-	}
-	
-	public function actionPerfil(){
-		$this->setView("listPerfil");
-		return true;
-	}
-	
-	public function actionNoticia(){
-		$this->setView("listNoticia");
-		return true;
-	}
-	
-	public function actionRelatorio(){
-		$this->setView("listRelatorio");
-		return true;
+	public function __call($functionName, $params){
+		preg_match("/^action(.+)$/", $functionName, $matches);
+		if ($matches){			
+			$module = strtolower($matches[1]);
+			$this->setView("$module/admin");
+			return true;
+		}
+		return false;		
 	}
 		
 	

@@ -1,0 +1,30 @@
+.tab-legend {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: solid black 1px;
+	vertical-align: bottom;
+	margin: 0;
+	padding: 0;
+}
+.required:after {
+	content: "*";
+	color: red;
+	font-weight: bold;
+}
+.container {
+	margin-top: 10px;
+	padding: 10px 15px;
+}
+
+[draggable='true']:hover {
+	cursor: move;
+}
+
+.droparea {
+	width: 100%;
+	display: block;
+	border: dashed green 3px;
+	height: 34px;
+	margin: 5px 0px;
+}

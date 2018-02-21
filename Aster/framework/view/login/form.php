@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>	
-	<?php View::includeBlock("head"); ?>
+	<?php View::includeView("html/head"); ?>
 	<style>
 .container {
 	margin-top: 10px;
@@ -67,12 +67,12 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<a class="edit" href="<?= Controller::route("voluntario", "recuperacao")?>"><i class="fa fa-forward"></i> Esqueci minha senha.</a>
+									<a class="edit" href="<?= Controller::route("cadastro", "modalEmail")?>"><i class="fa fa-forward"></i> Esqueci minha senha.</a>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<a href="<?= Controller::route("voluntario", "cadastro")?>"><i class="fa fa-forward"></i> Junte-se a nós! Cadastre-se aqui.</a>
+									<a href="<?= Controller::route("cadastro", "form")?>"><i class="fa fa-forward"></i> Junte-se a nós! Cadastre-se aqui.</a>
 								</div>
 							</div>
 							<div class="row">

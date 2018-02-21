@@ -8,7 +8,7 @@ class HomeController extends Controller {
 	}
 	
 	public function actionDefault(){		
-		$this->setView("homePage");
+		$this->setView("home/page");
 		return true;
 	}
 	

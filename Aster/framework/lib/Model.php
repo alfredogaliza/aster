@@ -119,12 +119,12 @@ class Model {
 		return !$this->read();
 	}
 	
-	public function get($field, $default = null){
+	public function get($field, $default = null, $void = true){
 		if (isset($this->attrs[$field])){
-			return $this->attrs[$field];
-		} else {
-			return $default;
+			if ($this->attrs[$field] || $void)
+				return $this->attrs[$field];
 		}
+		return $default;	
 	}
 	
 	public function getDate($field, $default = null){

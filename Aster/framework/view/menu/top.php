@@ -18,8 +18,9 @@
 						<li><a href="#"><i class="fa fa-user-circle-o"></i> Dados pessoais</a></li>
 						<li><a href="#"><i class="fa fa-history"></i> Histórico</a></li>
 						<li><a href="#"><i class="fa fa-comments"></i> Mensagens</a></li>
+						<li><a href="<?= Controller::route('voluntario','senha')?>"><i class="fa fa-lock"></i> Alterar Senha</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="#"><i class="fa fa-sign-out"></i> Sair</a></li>
+						<li><a href="<?= Controller::route('login','logoff')?>"><i class="fa fa-sign-out"></i> Sair</a></li>
 					</ul></li>
 			</ul>
 		</div>

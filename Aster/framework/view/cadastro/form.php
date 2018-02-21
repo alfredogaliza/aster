@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>	
-	<?php View::includeBlock("head"); ?>
+	<?php View::includeView("html/head"); ?>
 	<script>
 	$(document).ready(function(){
 		$("form").submit(function(){
@@ -39,7 +39,7 @@
 <body>
 	<div class="container">
 		<h2>Formulário de Cadastro de Voluntários</h2>
-		<form action="<?= Controller::route("voluntario", "cadastrarNovo")?>" method="POST">
+		<form action="<?= Controller::route("cadastro", "gravar")?>" method="POST">
 			<ul class="nav nav-tabs">
 				<li class="active"><a id="nav-pessoal" href="#tab-pessoal" data-toggle="tab">Dados Pessoais</a></li>
 				<li class=""><a id="nav-contato" href="#tab-contato" data-toggle="tab">Contato</a></li>

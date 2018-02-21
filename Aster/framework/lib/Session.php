@@ -7,8 +7,8 @@ class Session {
 	
 	private function __construct(){}
 	
-	public static function start(){
-		if (!self::isStarted()){
+	public static function start($force = false){
+		if (!self::isStarted() || $force){
 			session_start();
 			session_id();
 		}
@@ -42,17 +42,17 @@ class Session {
 	}
 	
 	public static function isStarted(){
-		return session_id() || false;
+		return (session_id() || false);
 	}
 	
 	public static function restart(){
-		self::destroy();
-		session_start();
+		self::destroy(true);
+		self::start(true);
 	}
 	
-	public static function destroy(){
-		if (self::isStarted()){
-			$_SESSION = array();
+	public static function destroy($force = false){
+		if (self::isStarted() || $force){
+			unset($_SESSION);
 			if (isset($_COOKIE[session_name()])) {
 			    setcookie(session_name(), '', time()-42000, '/');
 			}
