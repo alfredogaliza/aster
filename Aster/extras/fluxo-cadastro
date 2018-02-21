@@ -1,0 +1,24 @@
+#Tela de Login# -> #Formulário# -> #Tela de Agradecimento#
+			|--> [Email de confirmação] -> #Tela de Cadastro de Senha# -> #Tela de Senha Alterada# -> #Tela de Login#
+								|--> [Email de Aviso de Cadastro] -> #Tela de Login#
+
+#Tela de Login# -> #Modal Esqueci Senha# -> #Tela de Aviso de Senha Perdida#
+			|-->[Email de recuperação]-> #Tela de Cadastro de Senha# -> #Tela de Senha Alterada# -> #Tela de Login#
+								|--> [Email de Senha Alterada] -> #Tela de Login#
+
+#Telas
+	loginForm - Login
+	cadastroForm - Formulário
+	thanksPage - Agradecimento
+	senhaForm - Cadastro de Senha
+	senhaUpdatePage - Senha Alterada
+	recuperacaoModal - "Perdi a Senha"
+	recuperacaoPage - Link Enviado
+
+#Email
+	confirmacaoEmail - Confirmação de Cadastro e Criação de Senha
+	cadastradoEmail - Cadastro criado com sucesso
+	recuperacaoMail - Link de recuperação de senha perdida
+	recuperadoMail - Aviso de Senha Alterada
+	
+

@@ -42,7 +42,7 @@
 		echo "<b>Informações de Debug:</b>";
 		echo "<pre>",$e->getTraceAsString(),"</pre>";
 		echo "<b>Variáveis de Sessão:</b>";
-		echo "<pre>",var_dump($_SESSION),"</pre>";
+		//echo "<pre>",var_dump($_SESSION),"</pre>";
 		echo "<b>Variáveis do POST:</b>";
 		echo "<pre>",var_dump($_POST),"</pre>";
 		echo "<b>Variáveis do GET:</b>";
