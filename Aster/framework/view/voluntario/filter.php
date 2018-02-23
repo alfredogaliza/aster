@@ -87,7 +87,7 @@
 							<input type="text" name="aniversario_inicio" class="form-control birthday" value="<?= Globals::get('aniversario_inicio')?>" placeholder="Início" />
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="aniversario_fim" class="form-control birthday" value="<?= Globals::get('aniversario_fim')?>" placeholder="FIm" />
+							<input type="text" name="aniversario_fim" class="form-control birthday" value="<?= Globals::get('aniversario_fim')?>" placeholder="Fim" />
 						</div>
 					</div>
 				</div>

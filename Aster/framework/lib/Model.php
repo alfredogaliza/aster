@@ -113,10 +113,14 @@ class Model {
 		}
 	}
 	
-	public function delete(){
-		$sql = "DELETE FROM {$this->table} WHERE id ='{$this->id}'";
-		$this->attrs = Connection::query($sql);
-		return !$this->read();
+	public function delete($confirm = true){
+		if ($confirm){
+			$sql = "DELETE FROM {$this->table} WHERE id ='{$this->id}'";
+			$this->attrs = Connection::query($sql);
+			return !$this->read();
+		} 
+		
+		return false;
 	}
 	
 	public function get($field, $default = null, $void = true){

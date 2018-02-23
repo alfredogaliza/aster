@@ -137,7 +137,7 @@ $(function(){
 		return false;
 	});
 	
-	$(this).one("submit", "form", function(){
+	$(this).on("submit", "form", function(){
 		$("button[type='submit']", this).html("<i class='fa fa-spinner fa-pulse'></i> Carregando...").prop("disabled", true);
 		$("input[type='submit']", this).val("Carregando...").prop("disabled", true);
 		return true;
@@ -156,7 +156,7 @@ $(function(){
 				function(response){
 					if (response == ""){
 						location.reload(true);
-						$("#modal").modal("hide");
+						//$("#modal").modal("hide");
 					} else {
 						console.log(response);
 					}

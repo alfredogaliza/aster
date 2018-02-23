@@ -49,7 +49,7 @@
 							<input type="text" name="data_tratamento_inicio" class="form-control date" value="<?= Globals::get('data_tratamento_inicio')?>" placeholder="Início" />
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="data_tratamento_fim" class="form-control date" value="<?= Globals::get('data_tratamento_fim')?>" placeholder="FIm" />
+							<input type="text" name="data_tratamento_fim" class="form-control date" value="<?= Globals::get('data_tratamento_fim')?>" placeholder="Fim" />
 						</div>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 							<input type="text" name="data_atualizacao_inicio" class="form-control date" value="<?= Globals::get('data_atualizacao_inicio')?>" placeholder="Início" />
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="data_atualizacao_fim" class="form-control date" value="<?= Globals::get('data_atualizacao_fim')?>" placeholder="FIm" />
+							<input type="text" name="data_atualizacao_fim" class="form-control date" value="<?= Globals::get('data_atualizacao_fim')?>" placeholder="Fim" />
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 							<input type="text" name="aniversario_inicio" class="form-control birthday" value="<?= Globals::get('aniversario_inicio')?>" placeholder="Início" />
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="aniversario_fim" class="form-control birthday" value="<?= Globals::get('aniversario_fim')?>" placeholder="FIm" />
+							<input type="text" name="aniversario_fim" class="form-control birthday" value="<?= Globals::get('aniversario_fim')?>" placeholder="Fim" />
 						</div>
 					</div>
 				</div>

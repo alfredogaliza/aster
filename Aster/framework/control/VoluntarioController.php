@@ -113,7 +113,7 @@ class VoluntarioController extends Controller {
 	 */
 	public function actionGravar(){
 	
-		$nome = strtoupper(Globals::post('nome'));
+		$nome = mb_strtoupper(Globals::post('nome'),'utf-8');
 	
 		$this->voluntario = new Voluntario($this->id);
 		$this->voluntario->setAttrs($_POST);

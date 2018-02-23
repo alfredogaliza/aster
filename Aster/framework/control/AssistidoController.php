@@ -77,7 +77,7 @@ class AssistidoController extends Controller {
 	 */
 	public function actionGravar(){
 	
-		$nome = strtoupper(Globals::post('nome'));	
+		$nome = mb_strtoupper(Globals::post('nome'),'utf-8');	
 		$this->assistido = new Assistido($this->id);
 		$this->assistido->setAttrs($_POST);
 	
@@ -93,7 +93,7 @@ class AssistidoController extends Controller {
 			
 			foreach (Globals::post('responsavel_id', []) as $i => $responsavel_id){				
 				$responsavel = new Responsavel($responsavel_id);
-				$responsavel->set('nome', strtoupper(Globals::post('responsavel_nome')[$i]));
+				$responsavel->set('nome', mb_strtoupper(Globals::post('responsavel_nome')[$i],'utf-8'));
 				$responsavel->set('endereco', Globals::post('responsavel_endereco')[$i]);
 				$responsavel->set('contato', Globals::post('responsavel_contato')[$i]);
 				$responsavel->set('whatsapp', Globals::post('responsavel_whatsapp')[$i]);

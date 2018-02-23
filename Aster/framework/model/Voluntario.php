@@ -7,6 +7,8 @@ class Voluntario extends Model {
 	const STATUS_CONFIRM = 3;
 	const STATUS_NOTEFFECTIVE = 4;
 	
+	protected $recursos = NULL;
+	
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
 	}	
@@ -38,6 +40,19 @@ class Voluntario extends Model {
 		return $field? $perfil->get($field) : $perfil;
 	}
 	
+	public function getAtribuicoes($filter = "TRUE", $limit = 0, $page = 1){
+		
+		$atribuicoes = [];
+		$id = $this->get('id');
+		$filter = "voluntario_id = '$id' AND $filter ORDER BY id DESC";
+
+		if ($limit){
+			$filter .= " LIMIT $limit OFFSET ".(($page-1)*$limit);
+		}
+		
+		return Atribuicao::getAll('', $filter);
+	}
+	
 	public function hasAcao($id, $default = false){
 		$voluntario_id = $this->get('id');
 		return 
@@ -45,52 +60,28 @@ class Voluntario extends Model {
 			|| $default;
 	}
 	
-	public function getMenus(){
-		$perfil_id = $this->get('perfil_id');
+	public function getRecursos(){
+		if (is_null($this->recursos)){
 		
-		$ids = array();
-		$menus = array();
+			$perfil_id = $this->get('perfil_id');
 		
-		$sql = "SELECT m.id as id FROM menu m
-				LEFT JOIN recurso r ON m.id = r.menu_id
-				LEFT JOIN perfil_recurso pr ON pr.recurso_id = r.id
-				WHERE pr.perfil_id = '$perfil_id'
-				GROUP BY m.id
-				ORDER BY m.ordem";
+			$ids = array();
+			$recursos = array();
 		
-		Connection::query($sql);
+			$sql = "SELECT r.id as id FROM recurso r
+					LEFT JOIN perfil_recurso pr ON pr.recurso_id = r.id
+					WHERE pr.perfil_id = '$perfil_id'
+					GROUP BY r.id";
 		
-		while ($resultado = Connection::next()) $ids[] = $resultado['id'];		
-		foreach ($ids as $id) $menus[] = new Model("menu", $id, true);
-
-		return $menus;
-	}	
-	
-	public function getRecursos($menu = NULL){
-		if ($menu instanceof Model) {
-			$menu_id = $menu->get('id');
-			$filtro = "r.menu_id = '$menu_id'";
-		} else {
-			$filtro = "TRUE";
+			Connection::query($sql);
+		
+			while ($resultado = Connection::next()) $ids[] = $resultado['id'];		
+			foreach ($ids as $id) $recursos[] = new Model("recurso", $id, true);
+			
+			$this->recursos = $recursos;
 		}
-		
-		$perfil_id = $this->get('perfil_id');
-		
-		$ids = array();
-		$recursos = array();
-		
-		$sql = "SELECT r.id as id FROM recurso r
-				LEFT JOIN perfil_recurso pr ON pr.recurso_id = r.id
-				WHERE pr.perfil_id = '$perfil_id' AND $filtro
-				GROUP BY r.id
-				ORDER BY r.ordem";
-		
-		Connection::query($sql);
-		
-		while ($resultado = Connection::next()) $ids[] = $resultado['id'];		
-		foreach ($ids as $id) $recursos[] = new Model("recurso", $id, true);
 
-		return $recursos;		
+		return $this->recursos;		
 	}
 	
 	public function hasPermission($controller, $action){

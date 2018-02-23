@@ -1,7 +1,5 @@
 <?php
-
-
-class ResponsavelController extends Controller {
+class AcaoController extends Controller {
 	
 	
 	public $id = NULL;	
@@ -11,7 +9,7 @@ class ResponsavelController extends Controller {
 	 * @param unknown $action Nome da ação a ser executada
 	 */
 	public function __construct($action){
-		parent::__construct("responsavel", $action);
+		parent::__construct("acao", $action);
 		Session::start();
 
 		$this->id = Globals::get('id');
@@ -28,13 +26,12 @@ class ResponsavelController extends Controller {
 		$page = Globals::post('page', Globals::get('page', 1));
 		
 		$filters[] = ($nome = Globals::get('nome'))? "nome LIKE'%$nome%'" : "TRUE";
-		$filters[] = ($nome = Globals::get('parentesco'))? "parentesco LIKE'%$nome%'" : "TRUE";		
 		
 		$filter = implode (" AND ", $filters);
 		$offset = "OFFSET ".($page-1)*20;
 		
-		$this->responsaveis = Responsavel::getAll("", "$filter LIMIT 20 $offset");
-		$this->setView('responsavel/table');
+		$this->acoes = Acao::getAll("", "$filter LIMIT 20 $offset");
+		$this->setView('acao/table');
 		return true;
 	}
 	
@@ -45,8 +42,8 @@ class ResponsavelController extends Controller {
 	 * @return boolean
 	 */
 	public function actionModal(){
-		$this->responsavel = new Responsavel($this->id);		
-		$this->setView("responsavel/modal");
+		$this->acao = new Acao($this->id);		
+		$this->setView("acao/modal");
 		return true;
 	}
 	
@@ -56,12 +53,9 @@ class ResponsavelController extends Controller {
 	 */
 	public function actionGravar(){
 			
-		$this->responsavel = new Responsavel($this->id);
-		$this->responsavel->setAttrs($_POST);
-	
-		$nome = mb_strtoupper(Globals::post('nome'),'utf-8');
-		$this->responsavel->set('nome', $nome);
-		$this->responsavel->update();
+		$this->acao = new Acao($this->id);
+		$this->acao->setAttrs($_POST);
+		$this->acao->update();
 	
 		return false;
 	

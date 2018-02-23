@@ -17,7 +17,7 @@ $(document).on('drop', function(event) {
 	
 	var $target = $(event.target);
 	if ($target.hasClass('droparea')) {
-		$new = $dragged.clone();
+		$new = $dragged.clone();		
 		$target.append($new);
 		$new.unwrap('.droparea');
 		$dragged.remove();

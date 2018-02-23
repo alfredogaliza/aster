@@ -13,6 +13,9 @@ class AgendaController extends Controller {
 	
 	public function actionAtualizacao(){
 		header("Content-type: text/json");
+		return false;
+		
+		
 		echo
 			'[
 				{

@@ -47,7 +47,7 @@ class CadastroController extends Controller {
 	 */
 	public function actionGravar(){
 		
-		$nome = strtoupper(Globals::post('nome'));
+		$nome = mb_strtoupper(Globals::post('nome'),'utf-8');
 		$email = Globals::post('email1');
 		$cpf = Globals::post('cpf');
 		
@@ -200,7 +200,7 @@ class CadastroController extends Controller {
 		$voluntario = new Voluntario(Globals::post('id'));
 		
 		if ($senha1 == $senha2 && $oldsenha == $voluntario->get("senha")){
-			$voluntario->set('senha', strtoupper(md5($senha1)));
+			$voluntario->set('senha', mb_strtoupper(md5($senha1)),'utf-8');
 			$voluntario->set('confirmado', 1);
 			$voluntario->update();
 			Controller::dispatch('login', 'logoff', NULL, array('msg'=>'senha'));

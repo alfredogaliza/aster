@@ -85,6 +85,11 @@ $(document).ready(function() {
 					//$("[name='page']", $form).val(page);
 					data = data + "&" + $form.serialize();
 				
+				if (page == "1")
+					$home.addClass('disabled');
+				else
+					$home.removeClass('disabled');	
+				
 				//$fallback = $("<li class='disabled'><a href='#'><i class='fa fa-spin fa-spinner'></i>&nbsp;</a></li>");	
 				//$parent.prepend($fallback);
 				$target.load(url, data, function(response){

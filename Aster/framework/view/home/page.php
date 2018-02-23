@@ -19,7 +19,9 @@
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="noticias">
-						<ul class="list-group" id="div-noticias"></ul>
+						<div class="panel-body">
+							<ul class="list-group" id="div-noticias"></ul>
+						</div>
 						<div class="panel-footer text-right">
 							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('noticia', 'ajax')?>" data-target="#div-noticias" style="margin: 0"></ul>
 						</div>
@@ -36,27 +38,27 @@
 						<div class="col-md-12" id="my-calendar"></div>
 					</div>
 				</div>
-				<div class="panel panel-default">
+				<div class="panel panel-warning">
 					<div class="panel-heading">
-						<a data-toggle="collapse" href="#ultimas-tarefas"> Tarefas Atribuídas <span class="pull-right"><i class="fa fa-clock-o"></i></span>
+						<a data-toggle="collapse" href="#ultimas-tarefas"> Atribuições Pendentes <span class="pull-right"><i class="fa fa-clock-o"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="ultimas-tarefas">
 						<div class="panel-body" id="div-tarefas-atribuidas"></div>
 						<div class="panel-footer text-center">
-							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('tarefa', 'ajaxAtribuida')?>" data-target="#div-tarefas-atribuidas" style="margin: 0"></ul>
+							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('home', 'atribuicoes')?>" data-target="#div-tarefas-atribuidas" style="margin: 0"></ul>
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-default">
+				<div class="panel panel-success">
 					<div class="panel-heading">
-						<a data-toggle="collapse" href="#tarefas-abertas"> Tarefas Abertas <span class="pull-right"><i class="fa fa-list-ol"></i></span>
+						<a data-toggle="collapse" href="#tarefas-abertas"> Tarefas Disponíveis <span class="pull-right"><i class="fa fa-list-ol"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="tarefas-abertas">
 						<div class="panel-body" id="div-tarefas-abertas"></div>
 						<div class="panel-footer text-center">
-							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('tarefa', 'ajaxAberta')?>" data-target="#div-tarefas-abertas" style="margin: 0"></ul>
+							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('home', 'tarefas')?>" data-target="#div-tarefas-abertas" style="margin: 0"></ul>
 						</div>
 					</div>
 				</div>

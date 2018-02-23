@@ -4,7 +4,7 @@ class Config{
 	
 	const USE_RECAPTCHA = false;
 	const SYS_SIGLA  = "ASTER";
-	const SYS_TITULO = "Instituto Áster de Comabate ao Câncer";
+	const SYS_TITULO = "Instituto Áster de Combate ao Câncer";
 	
 	const COOKIE_FILE = ".cookie";
 	const UPLOAD_DIR_ANEXO = "/var/www/aster/files/anexo/";
