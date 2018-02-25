@@ -118,9 +118,21 @@ $(function(){
 		var href = $(this).attr("href")? $(this).attr("href") : $(this).attr("data-href");
 		var pagination = $(this).attr('data-pagination');
 		$.ajax(href).done(function(){
-			if (pagination != '') $('.active', pagination).click();
+			if (pagination != '') $('.page', pagination).click();
 			else location.reload();
 		});
+	});
+	
+	$(this).on("click", ".async-confirm", function(event){
+		event.preventDefault();		
+		var href = $(this).attr("href")? $(this).attr("href") : $(this).attr("data-href");
+		var pagination = $(this).attr('data-pagination');
+		if (confirm("Deseja realmente executar esta operação?")){
+			$.ajax(href).done(function(){
+				if (pagination != '') $('.page', pagination).click();
+				else location.reload();
+			});
+		}
 	});
 	
 	$(this).on("click", ".edit", function(event){
@@ -161,7 +173,7 @@ $(function(){
 						console.log(response);
 					}
 					$("button[type='submit']", this).html("<i class='fa fa-refresh'></i> Tentar Novamente").prop("disabled", false);
-					$("input[type='submit']", this).val("Tentar Novamente").prop("disabled", true);
+					$("input[type='submit']", this).val("Tentar Novamente").prop("disabled", false);
 				}
 			);
 		

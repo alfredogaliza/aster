@@ -41,7 +41,7 @@
 									</div>
 									<div class="row form-group">
 										<div class="col-md-12">
-											<label class="required">Descrição</label>
+											<label>Descrição</label>
 											<textarea class="form-control tinymce" name="descricao"><?= $this->evento->get('descricao')?></textarea>
 										</div>
 									</div>
@@ -81,10 +81,11 @@
 													</div>
 													<div class="row form-group">
 														<div class="col-md-4">
-															<label class="required">Início</label><br> <input value="<?= $tarefa->getDate('data_inicio')?>" name="tarefa_data_inicio[]" class="form-control datetime" required type="text" />
+															<label class="required">Fechamento</label><br>
+															<input value="<?= $tarefa->getDate('data_fechamento')?>" name="tarefa_data_fechamento[]" class="form-control date" required type="text" />
 														</div>
 														<div class="col-md-4">
-															<label class="required">Fim</label><br> <input value="<?= $tarefa->getDate('data_fim')?>" name="tarefa_data_fim[]" class="form-control datetime" required type="text" />
+															<label>Agendada para</label><br> <input value="<?= $tarefa->getDate('data_agendada')?>" name="tarefa_data_agendada[]" class="form-control date" type="text" />
 														</div>
 														<div class="col-md-4">
 															<label>Máx. Atribuições</label> <input type="number" name="tarefa_max_atribuicoes[]" value="<?= $tarefa->get('max_atribuicoes')?>" class="form-control">
@@ -203,10 +204,11 @@
 		</div>
 		<div class="row form-group">
 			<div class="col-md-4">
-				<label class="required">Início</label><br> <input value="<?= $tarefa->getDate('data_inicio')?>" name="tarefa_data_inicio[]" class="form-control datetime" required type="text" />
+				<label class="required">Fechamento</label><br>
+				<input value="<?= $tarefa->getDate('data_fechamento')?>" name="tarefa_data_fechamento[]" class="form-control date" required type="text" />
 			</div>
 			<div class="col-md-4">
-				<label class="required">Fim</label><br> <input value="<?= $tarefa->getDate('data_fim')?>" name="tarefa_data_fim[]" class="form-control datetime" required type="text" />
+				<label>Agendada para</label><br> <input value="<?= $tarefa->getDate('data_agendada')?>" name="tarefa_data_agendada[]" class="form-control date" type="text" />
 			</div>
 			<div class="col-md-4">
 				<label>Máx. Atribuições</label> <input type="number" name="tarefa_max_atribuicoes[]" value="<?= $tarefa->get('max_atribuicoes')?>" class="form-control">
@@ -338,7 +340,7 @@
 
 	$("#modal").on('change', "[name='assistencia_concluida[]']", function(){
 		$panel = $(this).parents('.panel');
-		if ($(this).prop('checked'))
+		if ($(':selected', this).val() == '1')
 			$panel.removeClass('panel-warning').addClass('panel-success');
 		else
 			$panel.removeClass('panel-success').addClass('panel-warning');

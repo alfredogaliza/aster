@@ -31,10 +31,10 @@
 									</div>
 									<div class="row form-group">
 										<div class="col-md-4">
-											<label class="required">Início</label><br> <input value="<?= $this->tarefa->getDate('data_inicio')?>" name="data_inicio" class="form-control datetime" required type="text" />
+											<label class="required">Fechamento</label><br> <input value="<?= $this->tarefa->getDate('data_fechamento')?>" name="data_fechamento" class="form-control date" required type="text" />
 										</div>
 										<div class="col-md-4">
-											<label class="required">Fim</label><br> <input value="<?= $this->tarefa->getDate('data_fim')?>" name="data_fim" class="form-control datetime" required type="text" />
+											<label>Agendada para</label><br> <input value="<?= $this->tarefa->getDate('data_agendada')?>" name="data_agendada" class="form-control date" type="text" />
 										</div>
 										<div class="col-md-4">
 											<label>Máx. Atribuições</label><br>
@@ -69,11 +69,9 @@
 											<div class="panel <?= $atribuicao->getStatusPanelClass()?> panel-atribuicao">
 												<div class="panel-heading">
 													<span class="atribuicao-nome"><?= $atribuicao->getVoluntario('nome')?></span>
-													<?php if ($atribuicao->getStatus() == Atribuicao::STATUS_ANDAMENTO): ?>
-													<span class="atribuicao-delete pull-right">
+													<span class="atribuicao-delete pull-right <?= ($atribuicao->getStatus() == Atribuicao::STATUS_ANDAMENTO)? '' : 'hidden'?>">
 														<a class="btn btn-danger" href="#"> <i class="fa fa-remove"></i></a>
 													</span>
-													<?php endif; ?>
 												</div>
 												<div class="panel-body">
 													<input type="hidden" name="atribuicao_id[]" value="<?= $atribuicao->get('id')?>" class="form-control">
@@ -127,11 +125,9 @@
 <div class="panel <?= $atribuicao->getStatusPanelClass()?> panel-atribuicao hidden" id="atribuicao-template">
 	<div class="panel-heading">
 		<span class="atribuicao-nome">Nova Atribuição</span>
-		<?php if ($atribuicao->getStatus() == Atribuicao::STATUS_ANDAMENTO): ?>
 		<span class="atribuicao-delete pull-right">
 			<a class="btn btn-danger" href="#"> <i class="fa fa-remove"></i></a>
 		</span>
-		<?php endif; ?>
 	</div>
 	<div class="panel-body">
 		<input type="hidden" name="atribuicao_id[]" value="<?= $atribuicao->get('id')?>" class="form-control">
@@ -192,10 +188,13 @@
 
 	$("#modal").on('change', "[name='atribuicao_concluida[]']", function(){
 		$panel = $(this).parents('.panel');		
-		if ($(this).val() == "1")
-			$panel.removeClass('panel-warning').addClass('panel-success');
-		else
-			$panel.removeClass('panel-success').addClass('panel-warning');
+		if ($(':selected', this).val() == "1"){
+			$panel.removeClass('panel-warning').addClass('panel-success');			
+			$('.atribuicao-delete', $panel).addClass('hidden');
+		} else {
+			$panel.removeClass('panel-success').addClass('panel-warning');			
+			$('.atribuicao-delete', $panel).removeClass('hidden');
+		}
 	});
 
 	$("#modal").modal("show").trigger('ajax.complete');

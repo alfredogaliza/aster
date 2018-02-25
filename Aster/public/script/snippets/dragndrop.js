@@ -5,7 +5,7 @@ var $dragged = null;
 $(document).on('dragstart', function(event) {
 	$dragged = $(event.target).parents('.panel');
 	event.originalEvent.dataTransfer.setDragImage($dragged[0], 0, 0);
-	$('.droppable').append($droparea);
+	$('.droppable').children().after($droparea);
 }).on('dragover', function(event) {
 	event.preventDefault();
 }).on('dragend', function(event) {

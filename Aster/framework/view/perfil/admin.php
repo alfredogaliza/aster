@@ -8,18 +8,18 @@
 <body>
 	<div class="container">
 		<?php View::includeView('menu/top')?>
-		<form id="form-busca" action="<?= Controller::route('noticia', 'table') ?>" method="GET">
+		<form id="form-busca" action="<?= Controller::route('perfil', 'table') ?>" method="GET">
 			<input type="hidden" name="status" value="<?= Globals::get('status', 0) ?>" id="status"/>
 			
 			<div class="row">
 				<div class="col-md-3">
 					<div class="row form-group">
 						<div class="col-md-12">
-							<?php View::includeView('noticia/filter')?>							
+							<?php View::includeView('perfil/filter')?>							
 							<div class="row form-group">
 								<div class="col-md-12">
-									<button type="button" class="btn btn-success form-control edit" data-href="<?= Controller::route('noticia', 'modal') ?>">
-										<i class="fa fa-plus"></i> Adicionar Notícia
+									<button type="button" class="btn btn-success form-control edit" data-href="<?= Controller::route('perfil', 'modal') ?>">
+										<i class="fa fa-plus"></i> Adicionar Perfil
 									</button>
 								</div>
 							</div>
@@ -29,14 +29,14 @@
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<a href="#" data-toggle="collapse" data-target="#resultados">Resultados de Notícias <span class="pull-right"><i class="fa fa-users"></i></span></a>
+							<a href="#" data-toggle="collapse" data-target="#resultados">Resultados de Perfis <span class="pull-right"><i class="fa fa-users"></i></span></a>
 						</div>
 						<div class="panel-collapse collapse in" id="resultados">
 							<div class="panel-body">								
-								<div id="div-noticias"></div>
+								<div id="div-perfis"></div>
 							</div>
 							<div class="panel-footer text-right">
-								<ul id="pagination" class="pagination pagination-ajax" data-form="#form-busca" data-target="#div-noticias" style="margin: 0"></ul>
+								<ul id="pagination" class="pagination pagination-ajax" data-form="#form-busca" data-target="#div-perfis" style="margin: 0"></ul>
 							</div>
 						</div>							
 					</div>

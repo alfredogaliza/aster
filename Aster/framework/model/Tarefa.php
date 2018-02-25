@@ -14,12 +14,12 @@ class Tarefa extends Model {
 	}	
 	
 	public function getStatus(){
-		$atribuicoes = $this->getAtribuicoes();
-		if (!$atribuicoes) return self::STATUS_ABERTA;
-		foreach ($atribuicoes as $atribuicao){
-			if (!$atribuicao->get('concluida')) return self::STATUS_ANDAMENTO; 
-		}
-		return self::STATUS_CONCLUIDA;		
+		$id = $this->get('id');
+		$sql = "SELECT status FROM lista_tarefa WHERE id = '$id'";
+		Connection::query($sql);
+		if ($row = Connection::next())
+			return $row['status'];
+		else return self::STATUS_ABERTA;
 	}
 	
 	public function getStatusPanelClass(){

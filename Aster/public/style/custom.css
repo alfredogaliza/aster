@@ -1,3 +1,6 @@
+/* Para uso do navbar-fixed-top*/
+body { padding-top: 50px; }
+
 .tab-legend {
 	display: inline-block;
 	width: 20px;
@@ -27,4 +30,18 @@
 	border: dashed green 3px;
 	height: 34px;
 	margin: 5px 0px;
+}
+
+.pre-scrollable {
+	height: 250px;
+}
+
+.msg.alert-success {
+	width: 80%;
+	float: right;
+}
+
+.msg.alert-warning {
+	width: 80%;
+	float: left;
 }

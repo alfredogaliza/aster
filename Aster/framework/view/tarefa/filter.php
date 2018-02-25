@@ -21,18 +21,30 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
-					<label>Data da Tarefa</label>
+					<label>Data de Fechamento</label>
 					<div class="row">
 						<div class="col-md-6">
-							<input type="text" name="data_inicio" class="form-control date" value="<?= Globals::get('data_inicio')?>" placeholder="Início" />
+							<input type="text" name="data_fechamento_inicio" class="form-control date" value="<?= Globals::get('data_fechamento_inicio')?>" placeholder="Início" />
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="data_fim" class="form-control date" value="<?= Globals::get('data_fim')?>" placeholder="Fim" />
+							<input type="text" name="data_fechamento_fim" class="form-control date" value="<?= Globals::get('data_fechamento_fim')?>" placeholder="Fim" />
 						</div>
 					</div>
 				</div>
 			</div>
-				
+			<div class="row form-group">
+				<div class="col-md-12">
+					<label>Data Agendada</label>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" name="data_agendada_inicio" class="form-control date" value="<?= Globals::get('data_agendada_inicio')?>" placeholder="Início" />
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="data_agendada_fim" class="form-control date" value="<?= Globals::get('data_agendada_fim')?>" placeholder="Fim" />
+						</div>
+					</div>
+				</div>
+			</div>	
 			<div class="row form-group">
 				<div class="col-md-12">
 					<button class="btn btn-default form-control" type="reset">

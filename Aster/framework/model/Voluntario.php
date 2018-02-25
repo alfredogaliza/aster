@@ -11,6 +11,86 @@ class Voluntario extends Model {
 	
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
+	}
+
+	public function getNAtribuicoesConcluidas(){
+		$id = $this->get('id');
+		$sql = "SELECT
+					COUNT(DISTINCT a.id) AS total
+				FROM evento e
+					LEFT JOIN tarefa t ON t.evento_id = e.id
+					LEFT JOIN atribuicao a ON a.tarefa_id = t.id
+				WHERE a.voluntario_id = '$id' and a.concluida";
+		Connection::query($sql);
+		
+		if ($row = Connection::next())
+			return $row['total'];
+		else
+			return 0;
+	}
+	
+	public function getNAssistenciasDiretas(){
+		$id = $this->get('id');
+		$sql = "SELECT
+					COUNT(DISTINCT ass.assistido_id) AS total
+				FROM evento e
+					LEFT JOIN tarefa t ON t.evento_id = e.id
+					LEFT JOIN atribuicao a ON a.tarefa_id = t.id AND a.concluida
+					LEFT JOIN assistencia ass ON ass.evento_id = e.id AND ass.concluida
+				WHERE a.voluntario_id = '$id'";
+		Connection::query($sql);
+	
+		if ($row = Connection::next())
+			return $row['total'];
+		else
+			return 0;
+	}
+	
+	public function getNEventos(){
+		$id = $this->get('id');
+		$sql = "SELECT
+					COUNT(DISTINCT t.evento_id) AS total
+				FROM evento e
+					LEFT JOIN tarefa t ON t.evento_id = e.id
+					LEFT JOIN atribuicao a ON a.tarefa_id = t.id
+				WHERE a.voluntario_id = '$id' and a.concluida";
+		Connection::query($sql);
+		
+		if ($row = Connection::next())
+			return $row['total'];
+		else
+			return 0;
+	}	
+	
+	public function getAgenda($mes, $ano){
+		$id = $this->get('id');
+		$sql = "SELECT
+					data_agenda as `date`,
+					CONCAT(SUM(tipo = 'evento'), ' Evento(s) e ', SUM(tipo = 'tarefa'), ' Tarefa(s)') as title,
+				    CONCAT(
+				    	\"<ul class='list-group'><li class='list-group-item'>\",
+				    	GROUP_CONCAT(
+				    		CONCAT(
+				    			\"<strong class='list-group-item-heading'>\",tipo,\": \",nome,\"</strong>\",
+				    			\"<p class='list-group-item-text'>\", descricao, \"</p>\"
+				    		) ORDER BY tipo, nome SEPARATOR '</li><li class=\"list-group-item\">'
+				    	),
+				    	\"</ul>\"
+				    ) as body,
+				    IF(SUM(tipo = 'Evento'), 'bg-info', '') as classname,
+				    IF(SUM(tipo = 'Tarefa'), true, false) as badge,
+				    true as modal,
+				    true as popover
+				FROM agenda a  
+				WHERE
+					mes_ano = '$mes/$ano'
+                    and voluntario_id = '$id' OR (
+						tipo='evento' AND acao_id IN
+                        (SELECT acao_id FROM voluntario_acao WHERE voluntario_id = '$id')
+					)
+				GROUP BY data_agenda";		
+			
+		return Model::getAllRowsSQL($sql);
 	}	
 	
 	public function getStatus(){

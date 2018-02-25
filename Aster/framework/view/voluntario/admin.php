@@ -14,7 +14,6 @@
 				<div class="col-md-3">
 					<div class="row form-group">
 						<div class="col-md-12">
-							<?php View::includeView('menu/admin')?>
 							<?php View::includeView('voluntario/filter')?>							
 							<div class="row form-group">
 								<div class="col-md-12">

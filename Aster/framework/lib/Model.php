@@ -24,10 +24,8 @@ class Model {
 		$values = implode(", ", $values);
 			
 		$sql = "INSERT INTO $nnTable($myField, $hisField) VALUES $values";
-		Connection::query($sql);
+		return Connection::query($sql);
 		
-		return true;
-	
 	}
 	
 	public function getAttrs(){

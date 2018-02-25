@@ -546,6 +546,7 @@ $.fn.zabuto_calendar = function(options) {
 														.attr("title",value.title)
 														.attr("data-content",value.body)
 														.attr("data-trigger","hover")
+														.attr("data-html","true")
 														.popover();
 											}
 
@@ -745,7 +746,7 @@ $(document).ready(function(){
 		language : 'pt_BR',
 		weekstartson: 0,
 		ajax : {
-			url : '/agenda/atualizacao',
+			url : '/home/agenda',
 			modal: true
 		}
 	});

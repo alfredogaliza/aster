@@ -9,6 +9,7 @@
 		<thead>
 			<tr>
 				<th>Nome</th>
+				<th>Fechamento</th>
 				<th>Data</th>
 				<th>Informações</th>
 				<th class='text-center'>Ações</th>
@@ -21,8 +22,10 @@
 				<small>Evento: <?= $tarefa->getEvento('nome')?></small>
 				</td>
 				<td>
-					<?= $tarefa->getDate('data_inicio')?> a<br>
-					<?= $tarefa->getDate('data_fim')?>
+					<?= $tarefa->getDate('data_fechamento')?>
+				</td>
+				<td>
+					<?= $tarefa->getDate('data_agendada')?>
 				</td>
 				<td>
 					<?= $atrs = count($tarefa->getAtribuicoes())?>

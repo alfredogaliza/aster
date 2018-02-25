@@ -1,7 +1,4 @@
 <?php
-include_once "lib/Controller.php";
-include_once "lib/Session.php";
-
 class DefaultController extends Controller {
 	
 	public function __construct($action) {

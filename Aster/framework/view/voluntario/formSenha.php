@@ -27,30 +27,36 @@
 					<input type="hidden" name="id" value="<?= $this->voluntario->get('id')?>" />					
 					<div class="row form-group">
 						<div class="col-md-12">
-							<h2>Cadastro de nova senha</h2>
-							<div class="row form-group">
-								<div class="col-md-12">
-									<label>Senha Atual</label>
-									<input id="senha" autocomplete="off" value="" name="old_senha" class="form-control" required type="password"  />
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<a href="#senha-collapse" data-toggle="collapse">Cadastro de Nova Senha <span class="pull-right"><i class="fa fa-key"></i></span</a>
 								</div>
-							</div>
-							<div class="row form-group">
-								<div class="col-md-12">
-									<label>Nova senha</label>
-									<input id="senha1" autocomplete="off" value="" name="senha1" class="form-control" required type="password"  />
+								<div class="panel-collapse collapse in" id="senha-collapse">
+									<div class="panel-body">							
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label>Senha Atual</label>
+										<input id="senha" autocomplete="off" value="" name="old_senha" class="form-control" required type="password"  />
+									</div>
 								</div>
-							</div>
-							<div class="row form-group">
-								<div class="col-md-12">
-								<label>Digite novamente</label>
-									<input id="senha2" autocomplete="off" value="" name="senha2" class="form-control" required type="password" />
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label>Nova senha</label>
+										<input id="senha1" autocomplete="off" value="" name="senha1" class="form-control" required type="password"  />
+									</div>
 								</div>
-							</div>
-							<div class="row form-group">
-								<div class="col-md-12">
-									<button type="submit" class="btn btn-primary form-control">
-										<i class="fa fa-sign-in"></i> Enviar
-									</button>
+								<div class="row form-group">
+									<div class="col-md-12">
+									<label>Digite novamente</label>
+										<input id="senha2" autocomplete="off" value="" name="senha2" class="form-control" required type="password" />
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<button type="submit" class="btn btn-primary form-control">
+											<i class="fa fa-sign-in"></i> Enviar
+										</button>
+									</div>
 								</div>
 							</div>							
 						</div>
@@ -58,8 +64,6 @@
 				</form>
 			</div>
 		</div>
-		<div id="modal-container"></div>
 	</div>
-
 </body>
 </html>

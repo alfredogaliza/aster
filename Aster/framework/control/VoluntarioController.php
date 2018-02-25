@@ -16,7 +16,13 @@ class VoluntarioController extends Controller {
 
 		$this->id = Globals::get('id');
 		$this->title = "";
-		$this->msg = "";		
+		$this->msg = Globals::get('msg');		
+	}
+	
+	public function actionForm(){
+		$this->voluntario = Session::getVoluntario();
+		$this->setView('voluntario/form');
+		return true;
 	}
 	
 	/**
@@ -124,10 +130,35 @@ class VoluntarioController extends Controller {
 		if ($this->voluntario->update()){	
 			$this->voluntario->updateAcoes(Globals::post('acao_id', []));										
 		}
-	
+			
 		return false;
 	
 	}
+	
+	/**
+	 * Cadastra ou Altera os dados de um voluntário
+	 * @return boolean
+	 */
+	public function actionGravarDadosPessoais(){
+	
+		$nome = mb_strtoupper(Globals::post('nome'),'utf-8');
+	
+		$this->voluntario = new Voluntario($this->id);
+		$this->voluntario->setAttrs($_POST);
+	
+		$this->voluntario->set('nome', $nome);
+		$this->voluntario->set('data_nascimento', Globals::postDate('data_nascimento'));
+			
+		if ($success = $this->voluntario->update()){
+			$success = $this->voluntario->updateAcoes(Globals::post('acao_id', []));
+		}	
+
+		Session::setVoluntario($this->voluntario);
+		Controller::dispatch('voluntario', 'form', NULL, ["msg"=>$success?'success':'fail']);
+			
+		return false;
+	
+	}	
 	
 
 	/**

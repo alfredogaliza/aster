@@ -19,13 +19,35 @@ class HomeController extends Controller {
 		$page = Globals::post('page', Globals::get('page', 1));
 		
 		$limit = "LIMIT 10 OFFSET ".(10*($page-1));
+		$voluntario_id = Session::getVoluntario('id');
+		$aberta = Tarefa::STATUS_ABERTA;
 		
-		$filter = "(NOT max_atribuicoes OR max_atribuicoes < atribuicoes OR NOT concluida)
-					AND NOW() BETWEEN data_inicio AND data_fim ORDER BY data_inicio DESC $limit";
+		/**
+		 * Seleciona as tarefas que estejam abertas e naquelas que o
+		 * voluntário tenha se inscrito e ainda não tenha se atribuído.
+		 */		
+		$filter = "status = '$aberta' AND id NOT IN (
+						SELECT tarefa_id FROM atribuicao WHERE voluntario_id = '$voluntario_id'
+					) AND acao_id IN (
+						SELECT acao_id FROM voluntario_acao WHERE voluntario_id = '$voluntario_id' 
+					) ORDER BY data_fechamento ASC $limit";
 		
 		$this->tarefas = Tarefa::getAll('',$filter);
 		$this->setView('tarefa/ajax');
 		return true;
+	}
+	
+	public function actionAgenda(){
+		header("Content-type: text/json");
+		
+		$mes = str_pad(Globals::get('month', date('m')), 2, '0', STR_PAD_LEFT);
+		$ano = str_pad(Globals::get('year', date('Y')), 4, '0', STR_PAD_LEFT);
+		
+		$agenda = Session::getVoluntario()->getAgenda($mes, $ano);
+		
+		echo json_encode($agenda);
+
+		return false;
 	}	
 	
 	public function actionDefault(){		

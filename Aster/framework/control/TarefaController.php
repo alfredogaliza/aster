@@ -19,6 +19,22 @@ class TarefaController extends Controller {
 		$this->msg = "";		
 	}
 	
+	public function actionAtribuir(){
+		$atribuicao = new Atribuicao();
+		$atribuicao->set('tarefa_id', $this->id);
+		$atribuicao->set('voluntario_id', Session::getVoluntario('id'));
+		$atribuicao->set('concluida', 0);
+		$atribuicao->create();
+		
+		return false;		
+	}
+	
+	public function actionDesistir(){
+		$atribuicao = new Atribuicao($this->id);
+		$atribuicao->delete();
+		return false;
+	}
+	
 	public function actionAjaxAberta(){
 		return false;
 	}
@@ -35,23 +51,18 @@ class TarefaController extends Controller {
 		$filters[] = ($nome = Globals::get('nome'))? "nome LIKE'%$nome%'" : "TRUE";
 		$filters[] = ($evento_id = Globals::get('evento_id'))? "evento_id = '$evento_id'" : "TRUE";
 
-		$inicio = Globals::getDate('data_inicio');
-		$fim = Globals::getDate('data_fim');		
-		$filters[] = $inicio? "data_inicio >= '$inicio'" : "TRUE";
-		$filters[] = $fim? "data_fim <= '$fim'" : "TRUE";		
+		$inicio = Globals::getDate('data_agendada_inicio');
+		$fim = Globals::getDate('data_agendada_fim');		
+		$filters[] = $inicio? "data_agendada >= '$inicio'" : "TRUE";
+		$filters[] = $fim? "data_agendada <= '$fim'" : "TRUE";
+
+		$inicio = Globals::getDate('data_fechamento_inicio');
+		$fim = Globals::getDate('data_fechamento_fim');
+		$filters[] = $inicio? "data_fechamento >= '$inicio'" : "TRUE";
+		$filters[] = $fim? "data_fechamento <= '$fim'" : "TRUE";
 		
-		switch ($status){
-			case Tarefa::STATUS_ABERTA:
-				$filters[] = "NOT atribuicoes";
-				break;
-			case Tarefa::STATUS_ANDAMENTO:
-				$filters[] = "atribuicoes AND NOT concluida";
-				break;
-			case Tarefa::STATUS_CONCLUIDA:
-				$filters[] = "atribuicoes AND concluida";
-				break;
-		}
-		
+		$filters[] = $status? "status = '$status'" : "TRUE";
+				
 		$filter = implode (" AND ", $filters);
 		$offset = "OFFSET ".($page-1)*20;
 		
@@ -84,8 +95,8 @@ class TarefaController extends Controller {
 		$this->tarefa->setAttrs($_POST);
 	
 		$this->tarefa->set('nome', $nome);
-		$this->tarefa->set('data_inicio', Globals::postDate('data_inicio'));
-		$this->tarefa->set('data_fim', Globals::postDate('data_fim'));		
+		$this->tarefa->set('data_fechamento', Globals::postDate('data_fechamento'));
+		$this->tarefa->set('data_agendada', Globals::postDate('data_agendada'));
 		
 		if ($this->tarefa->update()){
 			

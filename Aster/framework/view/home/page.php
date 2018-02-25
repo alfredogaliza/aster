@@ -11,8 +11,7 @@
 	<div class="container">
 		<?php View::includeView('menu/top')?>		
 		<div class="row form-group">
-			<div class="col-md-4 droppable">
-				<?php View::includeView('menu/admin')?>
+			<div class="col-md-4 droppable">				
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a data-toggle="collapse" href="#noticias"> Notícias <span class="pull-right"><i class="fa fa-newspaper-o"></i></span>
@@ -38,26 +37,26 @@
 						<div class="col-md-12" id="my-calendar"></div>
 					</div>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a data-toggle="collapse" href="#ultimas-tarefas"> Atribuições Pendentes <span class="pull-right"><i class="fa fa-clock-o"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="ultimas-tarefas">
 						<div class="panel-body" id="div-tarefas-atribuidas"></div>
-						<div class="panel-footer text-center">
+						<div class="panel-footer text-right">
 							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('home', 'atribuicoes')?>" data-target="#div-tarefas-atribuidas" style="margin: 0"></ul>
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-success">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a data-toggle="collapse" href="#tarefas-abertas"> Tarefas Disponíveis <span class="pull-right"><i class="fa fa-list-ol"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="tarefas-abertas">
 						<div class="panel-body" id="div-tarefas-abertas"></div>
-						<div class="panel-footer text-center">
+						<div class="panel-footer text-right">
 							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('home', 'tarefas')?>" data-target="#div-tarefas-abertas" style="margin: 0"></ul>
 						</div>
 					</div>
@@ -66,11 +65,18 @@
 			<div class="col-md-4 droppable">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a data-toggle="collapse" href="#pontuacao"> Pontuação <span class="pull-right"><i class="fa fa-trophy"></i></span>
+						<a data-toggle="collapse" href="#estatisticas"> Estatísticas <span class="pull-right"><i class="fa fa-flag"></i></span>
 						</a>
 					</div>
-					<div class="panel-collapse collapse in" id="pontuacao">
-						<div class="panel-body"></div>
+					<div class="panel-collapse collapse in" id="estatisticas">
+						<div class="panel-body">
+							<ul class="list-group">							
+							<li class="list-group-item"><b>Perfil:</b> <?= Session::getVoluntario()->getPerfil('descricao')?><br>
+							<li class="list-group-item"><b>Participação em Eventos:</b> <?= Session::getVoluntario()->getNEventos()?><br>
+							<li class="list-group-item"><b>Atribuições Concluídas:</b> <?= Session::getVoluntario()->getNAtribuicoesConcluidas()?><br>
+							<li class="list-group-item"><b>Assistências Diretas:</b> <?= Session::getVoluntario()->getNAssistenciasDiretas()?><br>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -79,14 +85,20 @@
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="mensagens">
-						<div class="panel-body" id="div-mensagens"></div>
-						<div class="panel-footer text-center">
-							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('mensagem', 'ajax')?>" data-target="#div-mensagens" style="margin: 0"></ul>
+						<div class="panel-body">
+							<div id="div-mensagens" class="form-group"></div>
+							<a class="form-control btn btn-success edit" href="<?= Controller::route('mensagem', 'modal')?>">
+								<i class="fa fa-plus"></i> Nova Mensagem
+							</a>
+						</div>
+						<div class="panel-footer text-right">
+							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('mensagem', 'ajax')?>" data-target="#div-mensagens" style="margin: 0"></ul>							
 						</div>
 					</div>
 				</div>				
 			</div>
-		</div>		
+		</div>
+		<div id="modal-container"></div>	
 	</div>
 </body>
 </html>

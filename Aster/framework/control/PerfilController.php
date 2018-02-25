@@ -10,32 +10,57 @@ class PerfilController extends Controller {
 		Session::start();	
 		
 		$this->id = Globals::get('id');
-		$this->perfil = new Perfil($this->id);		
 	}
+	/**
+	 * Apresenta a tabela de usuários filtrada e paginada pelos parâmetros repassados
+	 * @return boolean
+	 */
+	public function actionTable(){
+		$filters = [];
+		$page = Globals::post('page', Globals::get('page', 1));
 	
-	public function actionModal(){
-		$this->setView('modal');
+		$filters[] = ($descricao = Globals::get('descricao'))? "descricao LIKE'%$descricao%'" : "TRUE";
+	
+		$filter = implode (" AND ", $filters);
+		$offset = "OFFSET ".($page-1)*20;
+	
+		$this->perfis = Perfil::getAll("", "$filter LIMIT 20 $offset");
+		$this->setView('perfil/table');
 		return true;
 	}
 	
-	public function actionDelete(){
-		$this->perfil->delete();
-		Controller::dispatch("admin", "perfil", 0, array("msg"=>"success"));
+	
+	
+	/**
+	 * Apresenta o modal com os dados do voluntário a ser editado/criado
+	 * @return boolean
+	 */
+	public function actionModal(){
+		$this->perfil = new Perfil($this->id);
+		$this->setView("perfil/modal");
+		return true;
 	}
 	
+	/**
+	 * Cadastra ou Altera os dados de um voluntário
+	 * @return boolean
+	 */
 	public function actionGravar(){
-		$id          = Globals::post('id');
-		$descricao   = Globals::post('descricao');
-		$recurso_ids = Globals::post('recurso_id', []); 
-		
-		$this->perfil = new Perfil($id);
-		$this->perfil->set('descricao', $descricao);
+			
+		$this->perfil = new Perfil($this->id);
+		$this->perfil->setAttrs($_POST);
 		$this->perfil->update();
-		$this->perfil->updateRecursos($recurso_ids);		
 		
-		Controller::dispatch("admin", "perfil", 0, array("msg"=>"success")) ;
+		$this->perfil->updateRecursos(Globals::post('recurso_id', []));
+	
+		return false;
+	
+	}
+	
+	public function actionDelete(){
+		$perfil = new Perfil($this->id);
+		$perfil->delete();
 		return false;
 	}
-
-	
+		
 }

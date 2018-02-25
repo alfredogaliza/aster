@@ -39,13 +39,25 @@
 <body>
 	<div class="container">
 		<?php View::includeView('menu/top')?>
-		<h2>Formulário de Cadastro de Voluntários</h2>
-		<form action="<?= Controller::route("cadastro", "gravar")?>" method="POST">
+		<h2>Alteração de Dados Pessoais</h2>
+		
+		<?php if ($this->msg) :?>
+		<div class="alert alert-dismissible alert-<?= ($this->msg=='success')? 'success' : 'danger' ?>">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<?php if ($this->msg == 'success'):?>
+			Alteração realizada com sucesso!	
+			<?php else :?>
+			Falha na Operação! Não foi possível realizar a alteração dos dados.
+			<?php endif;?>
+		</div>
+		<?php endif;?>
+		
+		<form action="<?= Controller::route("voluntario", "gravarDadosPessoais", Session::getVoluntario('id'))?>" method="POST">
+			<input type="hidden" name="id" value="<?= Session::getVoluntario('id')?>" />
 			<ul class="nav nav-tabs">
 				<li class="active"><a id="nav-pessoal" href="#tab-pessoal" data-toggle="tab">Dados Pessoais</a></li>
 				<li class=""><a id="nav-contato" href="#tab-contato" data-toggle="tab">Contato</a></li>
 				<li class=""><a id="nav-interesse" href="#tab-interesse" data-toggle="tab">Ações de Interesse</a></li>
-				<li class=""><a id="nav-compromisso" href="#tab-compromisso" data-toggle="tab">Termo de Compromisso</a></li>
 			</ul>
 			<br>
 			<div class="row form-group">
@@ -94,14 +106,14 @@
 									<label class="required">Doador de Sangue?</label><br> <select name="doador_sangue" class="form-control" required>
 										<option value="">Selecione uma opção</option>
 										<option value="1" <?= ($this->voluntario->get('doador_sangue') == '1')? 'selected' : ''?>>Sim</option>
-										<option value="0" <?= ($this->voluntario->get('doador_sangue') === 'O')? 'selected' : ''?>>Não</option>
+										<option value="0" <?= (!$this->voluntario->get('doador_sangue'))? 'selected' : ''?>>Não</option>
 									</select>
 								</div>
 								<div class="col-md-6">
 									<label class="required">Doador de Medula?</label><br> <select name="doador_medula" class="form-control" required>
 										<option value="">Selecione uma opção</option>
 										<option value="1" <?= ($this->voluntario->get('doador_medula') == '1')? 'selected' : ''?>>Sim</option>
-										<option value="0" <?= ($this->voluntario->get('doador_medula') === 'O')? 'selected' : ''?>>Não</option>
+										<option value="0" <?= (!$this->voluntario->get('doador_medula'))? 'selected' : ''?>>Não</option>
 									</select>
 								</div>
 							</div>
@@ -181,56 +193,16 @@
 							<div class="row form-group">
 								<div class="col-md-12 text-right">
 									<button type="button" class="btn btn-info" onclick="$('#nav-contato').click()"><i class="fa fa-backward"></i> Voltar</button>
-									<button type="button" class="btn btn-info" onclick="$('#nav-compromisso').click()">Avançar <i class="fa fa-forward"></i></button>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="tab-compromisso">
-							<div class="row form-group">
-								<h3>Termo de Compromisso</h3>
-								<div class="col-md-12" style="border-radius: 10px; text-align: justify; height: 250px; overflow-y: scroll; border: solid gray 1px">
-									DECLARO para os devidos fins de direito, com fulcro na Lei nº 9.608/1998, referente ao trabalho voluntário que:
-									<ol>
-										<li>Estes serviços serão prestados por mim, gratuitamente, de livre e espontânea vontade, em dias e
-										horários por mim escolhidos, firmados com o Instituto Áster, por prazo indeterminado, a título de colaboração.
-										<li>Sendo serviços de natureza voluntário, estou ciente que estes não geram qualuqer vínculo empregatício, nem
-										obrigação de natureza trabalhista, previdenciária ou afim, entre a minha pessoa e o Instituto Áster, sendo que
-										, a qualquer título, exigir indenização pelos serviços prestados ou qualquer compensação em gênero ou espécie.
-										<li> AUTORIZO, desde já, o uso de minha imagem e voz a título gratuito, em todo território nacional e no exterior,
-										nos meios de comunicação em todas as modalidades e, em destaque, das seguintes formas: Outdoor, Busdoor, folhetos em
-										geral (encartes, malas diretas, catálogos, etc.), folder de apresentação, anúncios em revista e jornais em geral, homepage,
-										cartazes, backlight, mídia eletrônica (painéis, videotapes, televisão, cinema, programa para rádio, etc) e todo e qualquer material
-										entre fotos, documentos e outros meios de comunicação, quando utilizada para divulgação do trabalho desenvolvido por esta
-										comunidade, no exercício das atividades como voluntário.
-										<li>A qualquer momento posso deixar de prestar os serviços acima referidos em decorrência da natureza gratuita e não
-										econômica da minha colaboração voluntária.
-										<li>Fica reservado ao presidente a autorização para uso dos bens da instituição como também ressarcimento das
-										despesas comprovadas para realização das atividades voluntárias, desde que previamente autorizadas.										 
-									</ol>									
-									Por ser expressão de verdade, firmo o presente Termo, com a anuência do PRESIDENTE do Instituto Áster
-								</div>
-							</div>
-							<div class="row form-group">
-								<label class="col-md-12 required"><input type="checkbox" required <?= $this->voluntario->get('id')? 'checked' : ''?>> Li e aceito o termo de compromisso.</label>
-							</div>
-							<div class="row form-group">
-								<div class="col-md-12 text-right">
-									<button type="button" class="btn btn-info" onclick="$('#nav-interesse').click()"><i class="fa fa-backward"></i> Voltar</button>
 									<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar dados</button>
 								</div>
 							</div>
-						</div>
+						</div>						
 					</div>				
 				</div>
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
 					Campos marcados com <span style="color:red">*</span> são obrigatórios.
-				</div>
-			</div>
-			<div class="row form-group">
-				<div class="col-md-4">
-					<a href="<?= Controller::route("login")?>" class=""><i class="fa fa-backward"></i> Voltar para tela inicial</a>
 				</div>
 			</div>
 		</form>
