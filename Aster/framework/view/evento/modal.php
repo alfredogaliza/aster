@@ -145,7 +145,7 @@
 													</div>
 													<div class="row form-group">
 														<div class="col-md-12">
-															<label class="required">Descrição</label><br> <input value="<?= $assistencia->get('descricao')?>" name="assistencia_descricao[]" class="form-control" required type="text" />
+															<label>Descrição</label><br> <input value="<?= $assistencia->get('descricao')?>" name="assistencia_descricao[]" class="form-control" type="text" />
 														</div>
 													</div>
 													<div class="row form-group">

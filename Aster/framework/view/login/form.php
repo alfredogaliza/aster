@@ -24,7 +24,7 @@
 			<div class="col-md-offset-2 col-md-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a href="#login-collapse" data-toggle="collapse">Formulário de Login <span class="pull-right"><i class="fa fa-key"></i></span</a>
+						<a href="#login-collapse" data-toggle="collapse">Formulário de Login <span class="pull-right"><i class="fa fa-key"></i></span></a>
 					</div>
 					<div class="panel-collapse collapse in" id="login-collapse">
 						<div class="panel-body">

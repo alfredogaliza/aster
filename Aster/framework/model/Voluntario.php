@@ -77,10 +77,8 @@ class Voluntario extends Model {
 				    	),
 				    	\"</ul>\"
 				    ) as body,
-				    IF(SUM(tipo = 'Evento'), 'bg-info', '') as classname,
-				    IF(SUM(tipo = 'Tarefa'), true, false) as badge,
-				    true as modal,
-				    true as popover
+				    SUM(tipo = 'Evento') as eventos,
+				    SUM(tipo = 'Tarefa') as tarefas
 				FROM agenda a  
 				WHERE
 					mes_ano = '$mes/$ano'
@@ -165,6 +163,7 @@ class Voluntario extends Model {
 	}
 	
 	public function hasPermission($controller, $action){
+
 		foreach ($this->getRecursos() as $recurso){
 			if ($recurso->get('controle') == $controller && $recurso->get('acao') == $action)
 				return true;

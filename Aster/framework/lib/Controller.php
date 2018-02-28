@@ -8,7 +8,30 @@ class Controller {
 	public function __construct($name = "default", $action = "default"){
 		$this->name = $name;
 		$this->action = $action;
-		Session::start();				
+		Session::start();
+		
+		if (self::grantPermission($name, $action) || Session::getVoluntario()->hasPermission($name, $action));
+		else self::dispatch("login");
+	}
+	
+	private function grantPermission($controller, $action){
+		if ($controller == "login") return true;
+		if ($controller == "cadastro") return true;
+		if (Session::getVoluntario('id')){
+			if ($controller == "acao") return true;
+			if ($controller == "home") return true;
+			if ($controller == "noticia") return true;
+			if ($controller == "mensagem") return true;
+			if ($controller == "atribuicao") return true;
+			if ($controller == "tarefa") return true;
+			if ($controller == "assistido") return true;
+			if ($controller == "evento") return true;
+			if ($controller == "perfil") return true;
+			if ($controller == "relatorio") return true;
+			if ($controller == "responsavel") return true;
+			if ($controller == "tarefa") return true;
+			if ($controller == "voluntario") return true;
+		}
 	}
 	
 	public function setView($view){

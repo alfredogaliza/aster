@@ -29,7 +29,7 @@
 						<div class="col-md-12">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<a href="#senha-collapse" data-toggle="collapse">Cadastro de Nova Senha <span class="pull-right"><i class="fa fa-key"></i></span</a>
+									<a href="#senha-collapse" data-toggle="collapse">Cadastro de Nova Senha <span class="pull-right"><i class="fa fa-key"></i></span></a>
 								</div>
 								<div class="panel-collapse collapse in" id="senha-collapse">
 									<div class="panel-body">							

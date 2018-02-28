@@ -6,15 +6,33 @@
 	<script src="<?= Controller::route('script','snippets/zabuto.js')?>" type="text/javascript" language="javascript"></script>
 	<script src="<?= Controller::route('script','snippets/pagination.js')?>" type="text/javascript" language="javascript"></script>
 	<script src="<?= Controller::route('script','snippets/dragndrop.js')?>" type="text/javascript" language="javascript"></script>
+	<script>
+		$(document).ready(function(){
+			$(window).resize(function(){
+				if($(window).width() <= 1023){
+					$(".panel-resize .collapse-control").off('click').on('click', function(){
+						$(".panel-resize .collapse").collapse("hide");		
+						$($(this).attr('data-target')).collapse('show');
+					});
+					$(".panel-resize .collapse").collapse("hide");					
+				} else {
+					$(".panel-resize .collapse-control").off('click');
+					$(".panel-resize .collapse").collapse("show");
+					
+				}							
+				
+			}).resize();
+		});
+	</script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="parent-container">
 		<?php View::includeView('menu/top')?>		
 		<div class="row form-group">
 			<div class="col-md-4 droppable">				
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#noticias"> Notícias <span class="pull-right"><i class="fa fa-newspaper-o"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#noticias"> Notícias <span class="pull-right"><i class="fa fa-newspaper-o"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="noticias">
@@ -28,18 +46,18 @@
 				</div>
 			</div>
 			<div class="col-md-4 droppable">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#agenda"> Agenda <span class="pull-right"><i class="fa fa-calendar"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#agenda"> Agenda <span class="pull-right"><i class="fa fa-calendar"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in row" id="agenda">
 						<div class="col-md-12" id="my-calendar"></div>
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#ultimas-tarefas"> Atribuições Pendentes <span class="pull-right"><i class="fa fa-clock-o"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#ultimas-tarefas"> Atribuições Pendentes <span class="pull-right"><i class="fa fa-clock-o"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="ultimas-tarefas">
@@ -49,9 +67,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#tarefas-abertas"> Tarefas Disponíveis <span class="pull-right"><i class="fa fa-list-ol"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#tarefas-abertas"> Tarefas Disponíveis <span class="pull-right"><i class="fa fa-list-ol"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="tarefas-abertas">
@@ -63,9 +81,9 @@
 				</div>
 			</div>
 			<div class="col-md-4 droppable">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#estatisticas"> Estatísticas <span class="pull-right"><i class="fa fa-flag"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#estatisticas"> Estatísticas <span class="pull-right"><i class="fa fa-flag"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="estatisticas">
@@ -79,9 +97,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<a data-toggle="collapse" href="#mensagens"> Mensagens <span class="pull-right"><i class="fa fa-comments"></i></span>
+				<div class="panel panel-default panel-resize">
+					<div class="panel-heading" draggable="true">
+						<a data-toggle="collapse" data-parent="" class="collapse-control" href="#mensagens"> Mensagens <span class="pull-right"><i class="fa fa-comments"></i></span>
 						</a>
 					</div>
 					<div class="panel-collapse collapse in" id="mensagens">

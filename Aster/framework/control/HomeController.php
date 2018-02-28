@@ -44,7 +44,12 @@ class HomeController extends Controller {
 		$ano = str_pad(Globals::get('year', date('Y')), 4, '0', STR_PAD_LEFT);
 		
 		$agenda = Session::getVoluntario()->getAgenda($mes, $ano);
-		
+		foreach ($agenda as &$dia){
+			$dia['classname'] = $dia['eventos']? 'bg-info' : '';
+			$dia['badge'] = ($dia['tarefas'] || false);
+			$dia['popover'] = false;
+			$dia['modal'] = false;
+		}
 		echo json_encode($agenda);
 
 		return false;
