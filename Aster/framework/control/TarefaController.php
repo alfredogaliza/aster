@@ -19,6 +19,19 @@ class TarefaController extends Controller {
 		$this->msg = "";		
 	}
 	
+	public function actionModalParticipar(){
+		$this->tarefa = new Tarefa($this->id);
+		$this->setView('tarefa/modalParticipar');
+		return true;
+	}
+	
+	public function actionModalDesistir(){
+		$this->atribuicao = new Atribuicao($this->id);
+		$this->tarefa = $this->atribuicao->getTarefa();
+		$this->setView('tarefa/modalDesistir');
+		return true;
+	}
+	
 	public function actionAtribuir(){
 		$atribuicao = new Atribuicao();
 		$atribuicao->set('tarefa_id', $this->id);

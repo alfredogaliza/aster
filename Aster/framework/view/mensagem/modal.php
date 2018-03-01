@@ -9,10 +9,9 @@
 				<form class="form-horizontal" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
 					<input name="remetente_id" type="hidden" value="<?= $this->mensagem->get('remetente_id', Session::getVoluntario('id')) ?>">					
 					<div class="row form-group">
-						<label class="col-md-2" for="descricao">Destinatário:</label>
+						<label class="col-md-2" for="descricao">Destinatários:</label>
 						<div class="col-md-10">
-							<select name="destinatario_id" class="form-control" required>
-								<option value="">Selecione um destinatário</option>
+							<select name="destinatario_ids[]" class="form-control multiselect" required multiple>
 								<?php echo Model::getOptions('voluntario', 'id', 'nome', $this->mensagem->get('destinatario_id'), 'TRUE', 'nome') ?>
 							</select>
 						</div>
@@ -40,11 +39,21 @@
 </div>
 <script>
 
+	$('.multiselect').multiselect({
+		maxHeight: 200,
+		enableFiltering: true,
+		filterPlaceholder:'Pesquisar...',
+		enableCaseInsensitiveFiltering: true,
+		includeSelectAllOption: true,
+		nonSelectedText: 'Selecionar Destinos',
+		numberDisplayed: 1
+	});
+
 	$("#modal").modal("show").on('shown.bs.modal', function(){
 		container = $('#conversa');
 		scrollTo = $('#msg-<?php echo $this->mensagem->get('id')?>');		
 		container.animate({
-	    	scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+	    	//scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
 		});
 	});
 	
@@ -56,7 +65,7 @@
 			url: form.attr('action'),
 			data: form.serialize(),
 			complete: function(){
-				window.location.reload();
+				//window.location.reload();
 			}
 		});
 				

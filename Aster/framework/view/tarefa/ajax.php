@@ -2,7 +2,7 @@
 	<li class="list-group-item">
 		<p class="list-group-item-heading ">
 			<strong><?= $tarefa->getEvento('nome') ?></strong>
-			<a data-toggle="tooltip" title="Participar" class="pull-right async-confirm" href="<?= Controller::route('tarefa', 'atribuir', $tarefa->get('id'))?>">
+			<a data-toggle="tooltip" title="Participar" class="pull-right edit" href="<?= Controller::route('tarefa', 'modalParticipar', $tarefa->get('id'))?>">
 				<i class="fa fa-thumbs-up"></i>
 			</a>
 		</p>

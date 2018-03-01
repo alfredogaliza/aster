@@ -6,22 +6,19 @@
 	<script src="<?= Controller::route('script','snippets/zabuto.js')?>" type="text/javascript" language="javascript"></script>
 	<script src="<?= Controller::route('script','snippets/pagination.js')?>" type="text/javascript" language="javascript"></script>
 	<script src="<?= Controller::route('script','snippets/dragndrop.js')?>" type="text/javascript" language="javascript"></script>
+	
+	<link rel="stylesheet" href="<?= Controller::route("script", "vendor/bootstrap-multiple-select/css/bootstrap-multiselect.css")?>">
+	<script src="<?= Controller::route("script", "vendor/bootstrap-multiple-select/js/bootstrap-multiselect.js")?>" type="text/javascript" language="javascript"></script>
+	
 	<script>
 		$(document).ready(function(){
-			$(window).resize(function(){
-				if($(window).width() <= 1023){
-					$(".panel-resize .collapse-control").off('click').on('click', function(){
-						$(".panel-resize .collapse").collapse("hide");		
-						$($(this).attr('data-target')).collapse('show');
-					});
-					$(".panel-resize .collapse").collapse("hide");					
-				} else {
-					$(".panel-resize .collapse-control").off('click');
-					$(".panel-resize .collapse").collapse("show");
-					
-				}							
-				
-			}).resize();
+			if($(window).width() <= 1023){				
+				$(".panel-resize .collapse-control").on('click', function(){
+					$(".panel-resize .collapse").collapse("hide");		
+					$($(this).attr('data-target')).collapse('show');
+				});
+				$(".panel-resize .collapse").removeClass("in");					
+			}			
 		});
 	</script>
 </head>

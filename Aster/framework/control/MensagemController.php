@@ -54,9 +54,14 @@ class MensagemController extends Controller {
 	}	
 	
 	public function actionGravar(){
-		$mensagem = new Mensagem();
-		$mensagem->setAttrs($_POST);
-		$mensagem->update();
+		
+		foreach (Globals::post('destinatario_ids', []) as $destinatario_id){
+			$mensagem = new Mensagem();
+			$mensagem->setAttrs($_POST);
+			$mensagem->set('destinatario_id', $destinatario_id);
+			$mensagem->update();
+		}
+		
 		return false;
 	}
 	
