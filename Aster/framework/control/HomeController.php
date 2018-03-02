@@ -20,13 +20,15 @@ class HomeController extends Controller {
 		
 		$limit = "LIMIT 10 OFFSET ".(10*($page-1));
 		$voluntario_id = Session::getVoluntario('id');
+		$efetivo = Session::getVoluntario()->isEfetivo()? "TRUE" : "FALSE";
 		$aberta = Tarefa::STATUS_ABERTA;
 		
 		/**
 		 * Seleciona as tarefas que estejam abertas e naquelas que o
 		 * voluntário tenha se inscrito e ainda não tenha se atribuído.
+		 * Se ainda não for efetivado, mostrar somente as tarefas de efetivação.
 		 */		
-		$filter = "status = '$aberta' AND id NOT IN (
+		$filter = "($efetivo XOR efetivacao) AND status = '$aberta' AND id NOT IN (
 						SELECT tarefa_id FROM atribuicao WHERE voluntario_id = '$voluntario_id'
 					) AND acao_id IN (
 						SELECT acao_id FROM voluntario_acao WHERE voluntario_id = '$voluntario_id' 

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Responsável</th>
@@ -18,9 +18,13 @@
 					<?= $responsavel->get('email')?>
 				</td>
 				<td class='text-center'>
-					<button class="btn btn-default edit" data-href="<?= Controller::route("responsavel", "modal", $responsavel->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+						href="<?= Controller::route("responsavel", "modal", $responsavel->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>
+					</a>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("responsavel", "delete", $responsavel->get('id')) ?>">
+						<i class="fa fa-trash"></i>
+					</a>
 				</td>
 			</tr>
 		</tbody>

@@ -8,7 +8,7 @@
 </ul>
 <?php if ($this->voluntarios): ?>
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Voluntário</th>
@@ -28,17 +28,19 @@
 											</td>
 				<td><?= $voluntario->getPerfil('descricao')?></td>
 				<td class='text-center'>
-					<button class="btn btn-default edit" data-href="<?= Controller::route("voluntario", "modal", $voluntario->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("voluntario", "modal", $voluntario->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button> <a class="btn btn-default edit" href="<?= Controller::route('mensagem', 'modal', NULL, ['destinario_id'=>$voluntario->get('id')]) ?>"> <i class="fa fa-envelope-o"></i>
-				</a>
+					</a>
 												<?php if ($voluntario->get('ativo')):?>
-												<a class="btn btn-default async" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'block', $voluntario->get('id')) ?>"> <i class="fa fa-remove"></i>
-						</button>
+												<a data-toggle="tooltip" title="Bloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'block', $voluntario->get('id')) ?>"> <i class="fa fa-ban"></i>
+						</a>
 												<?php else : ?>
-												<a class="btn btn-default async" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'unblock', $voluntario->get('id')) ?>"> <i class="fa fa-check"></i>
-							</button>
+												<a  data-toggle="tooltip" title="Desbloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'unblock', $voluntario->get('id')) ?>"> <i class="fa fa-check"></i>
+							</a>
 												<?php endif;?>
+												<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("voluntario", "delete", $voluntario->get('id')) ?>">
+						<i class="fa fa-trash"></i>
+					</a>
 
 			
 				

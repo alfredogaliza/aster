@@ -5,7 +5,7 @@
 <li class="<?= (Globals::get('status')==Evento::STATUS_ENCERRADO)?'active':''?>"><a href="#" data-status="3" class="change-status"><span class="tab-legend bg-success"></span> Encerrado</a></li>
 </ul>
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Nome</th>
@@ -29,12 +29,13 @@
 					<?= count($evento->getAssistencias())?> Assistência(s)
 				</td>
 				<td class='text-center'>				
-					<button class="btn btn-default edit" data-href="<?= Controller::route("evento", "modal", $evento->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+						href="<?= Controller::route("evento", "modal", $evento->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>
+					</a>
 					<?php if (!count($evento->getTarefas()) && !count($evento->getAssistencias())): ?>
-					<a class="btn btn-default delete async" href="<?= Controller::route("evento", "delete", $evento->get('id')) ?>">
-						<i class="fa fa-remove"></i>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("evento", "delete", $evento->get('id')) ?>">
+						<i class="fa fa-trash"></i>
 					</a>
 					<?php endif;?>
 				</td>

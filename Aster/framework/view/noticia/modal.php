@@ -18,7 +18,7 @@
 							<div class="row form-group">
 								<div class="col-md-12">
 									<label>Texto</label><br>
-									<textarea name="descricao" class="form-control tinymce"><?= $this->noticia->get('texto')?></textarea>
+									<textarea name="texto" class="form-control tinymce"><?= $this->noticia->get('texto')?></textarea>
 								</div>
 							</div>								
 						</div>

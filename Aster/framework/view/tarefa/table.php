@@ -5,7 +5,7 @@
 <li class="<?= (Globals::get('status')==Tarefa::STATUS_CONCLUIDA)?'active':''?>"><a href="#" data-status="3" class="change-status"><span class="tab-legend bg-success"></span> Concluída</a></li>
 </ul>
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Nome</th>
@@ -34,12 +34,13 @@
 					<?= $tarefa->getConcluidas() ?> Concluídas
 				</td>
 				<td class='text-center'>
-					<button class="btn btn-default edit" data-href="<?= Controller::route("tarefa", "modal", $tarefa->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+						href="<?= Controller::route("tarefa", "modal", $tarefa->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>
+					</a>
 					<?php if (!count($tarefa->getAtribuicoes())): ?>
-					<a class="btn btn-default delete async" href="<?= Controller::route("tarefa", "delete", $tarefa->get('id')) ?>">
-						<i class="fa fa-remove"></i>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("tarefa", "delete", $tarefa->get('id')) ?>">
+						<i class="fa fa-trash"></i>
 					</a>
 					<?php endif;?>
 				</td>

@@ -59,6 +59,12 @@ class AcaoController extends Controller {
 	
 		return false;
 	
-	}	
+	}
+	
+	public function actionDelete(){
+		$model = new Acao($this->id);
+		$model->delete();
+		return false;
+	}
 	
 }

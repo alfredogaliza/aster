@@ -1,5 +1,6 @@
 <form action="<?= Controller::route("tarefa", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->tarefa->get('id')?>" name="id" type="hidden" />
+	<input value="<?= $this->tarefa->get('evento_id')?>" name="evento_id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -18,8 +19,16 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="tab-geral">
 									<div class="row form-group">
-										<div class="col-md-12">
+										<div class="col-md-8">
 											<label class="required" class="required">Nome</label><br> <input name="nome" class="form-control" required type="text" value="<?= $this->tarefa->get('nome')?>" />
+										</div>
+										<div class="col-md-4">
+											<label class="required">Efetivação</label>
+											<select name="efetivacao" class="form-control">
+												<option value="">Selecione</option>
+												<option value="1" <?= $this->tarefa->get('efetivacao')? 'selected' : ''?>>Sim</option>
+												<option value="0" <?= $this->tarefa->get('efetivacao')? '' : 'selected'?>>Não</option>
+											</select>
 										</div>
 									</div>
 									<div class="row form-group">
@@ -77,9 +86,10 @@
 													<input type="hidden" name="atribuicao_id[]" value="<?= $atribuicao->get('id')?>" class="form-control">
 													<div class="row form-group">
 														<div class="col-md-12">
-															<label class="required">Voluntário</label> <select required name="atribuicao_voluntario_id[]" class="form-control">
+															<label class="required">Voluntário</label>
+															<select required name="atribuicao_voluntario_id[]" class="form-control multiselect">
 																<option value="">Selecione um voluntário</option>
-																<?= Model::getOptions('voluntario', 'id', 'nome', $atribuicao->get('voluntario_id'))?>
+																<?= Model::getOptions('voluntario', 'id', 'nome', $atribuicao->get('voluntario_id'), "ativo AND NOT excluido  OR id = '".$atribuicao->get('voluntario_id')."'")?>
 															</select>
 														</div>
 													</div>													
@@ -135,7 +145,7 @@
 			<div class="col-md-12">
 				<label class="required">Voluntário</label> <select required name="atribuicao_voluntario_id[]" class="form-control">
 					<option value="">Selecione um voluntário</option>
-					<?= Model::getOptions('voluntario', 'id', 'nome', $atribuicao->get('voluntario_id'))?>
+					<?= Model::getOptions('voluntario', 'id', 'nome', NULL, "ativo AND NOT excluido")?>
 				</select>
 			</div>
 		</div>													

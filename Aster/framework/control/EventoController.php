@@ -108,10 +108,17 @@ class EventoController extends Controller {
 				$tarefa->set('evento_id', $evento_id);
 				$tarefa->set('nome', mb_strtoupper(Globals::post('tarefa_nome')[$i],'utf-8'));
 				$tarefa->set('descricao', Globals::post('tarefa_descricao')[$i]);
+				$tarefa->set('efetivacao', Globals::post('tarefa_efetivacao')[$i]? '1' : '0');
 				$tarefa->set('data_fechamento', Globals::postDate('tarefa_data_fechamento')[$i]);
 				$tarefa->set('data_agendada', Globals::postDate('tarefa_data_agendada')[$i]? Globals::postDate('tarefa_data_agendada')[$i] : NULL);
 				$tarefa->set('max_atribuicoes', Globals::post('tarefa_max_atribuicoes')[$i]);
 				$tarefa->update();
+				
+				if ($tarefa->get('efetivacao'))
+					foreach ($tarefa->getAtribuicoes() as $atribuicao)
+						if ($atribuicao->get('concluida'))
+							$atribuicao->getVoluntario()->efetivar($evento_id);
+				
 				$tarefas_novas[] = $tarefa;
 			}
 			

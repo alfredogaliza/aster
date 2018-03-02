@@ -99,7 +99,7 @@ class Model {
 		if ($id = $this->get('id')){
 			$attrs = array();
 			foreach ($this->attrs as $key => $value){
-				$value = is_null($value)? "NULL" : "'".addslashes($value)."'";			
+				$value = is_null($value)? "NULL" : "'".addslashes(stripslashes($value))."'";			
 				$attrs[] = "$key = $value";
 			}
 			$attrs = implode(", ", $attrs);

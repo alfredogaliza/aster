@@ -75,8 +75,16 @@
 												<div class="panel-body">
 													<input type="hidden" name="tarefa_id[]" value="<?= $tarefa->get('id')?>" class="form-control">
 													<div class="row form-group">
-														<div class="col-md-12">
+														<div class="col-md-8">
 															<label class="required">Nome</label> <input type="text" name="tarefa_nome[]" value="<?= $tarefa->get('nome')?>" class="form-control">
+														</div>
+														<div class="col-md-4">
+															<label class="required">Efetivação</label>
+															<select name="tarefa_efetivacao[]" class="form-control">
+																<option value="">Selecione</option>
+																<option value="1" <?= $tarefa->get('efetivacao')? 'selected' : ''?>>Sim</option>
+																<option value="0" <?= $tarefa->get('efetivacao')? '' : 'selected'?>>Não</option>
+															</select>
 														</div>
 													</div>
 													<div class="row form-group">
@@ -139,7 +147,7 @@
 														<div class="col-md-12">
 															<label class="required">Assistido</label> <select name="assistencia_assistido_id[]" class="form-control">
 																<option value="">Selecione um assistido</option>
-																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'))?>
+																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido OR id = '".$assistencia->get('assistido_id')."'")?>
 															</select>
 														</div>
 													</div>
@@ -198,8 +206,16 @@
 	<div class="panel-body">
 		<input type="hidden" name="tarefa_id[]" value="<?= $tarefa->get('id')?>" class="form-control">
 		<div class="row form-group">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<label class="required">Nome</label> <input type="text" name="tarefa_nome[]" value="<?= $tarefa->get('nome')?>" class="form-control">
+			</div>
+			<div class="col-md-4">
+				<label class="required">Efetivação</label>
+				<select name="tarefa_efetivacao[]" class="form-control">
+					<option value="">Selecione</option>
+					<option value="1">Sim</option>
+					<option value="0">Não</option>
+				</select>
 			</div>
 		</div>
 		<div class="row form-group">
@@ -239,7 +255,7 @@
 			<div class="col-md-12">
 				<label class="required">Assistido</label> <select name="assistencia_assistido_id[]" class="form-control">
 					<option value="">Selecione um assistido</option>
-																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'))?>
+																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido")?>
 															</select>
 			</div>
 		</div>

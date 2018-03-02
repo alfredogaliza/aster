@@ -24,14 +24,16 @@ class AssistidoController extends Controller {
 	 * @return boolean
 	 */
 	public function actionTable(){
-		$filters = [];
+		$filters = ["NOT excluido"];
 		$page = Globals::post('page', Globals::get('page', 1));
 		$status = Globals::get('status');
 		
-		$filters[] = ($sexo = Globals::get('sexo'))? "sexo = '$sexo'" : "TRUE";
-		$filters[] = ($nome = Globals::get('nome'))? "nome LIKE'%$nome%'" : "TRUE";
+		$filters[] = ($id = Globals::get('id'))? "a.id = '$id'" : "TRUE";
+		$filters[] = ($sexo = Globals::get('sexo'))? "sexo = '$sexo'" : "TRUE";		
+		$filters[] = ($nome = Globals::get('nome'))? "a.nome LIKE'%$nome%'" : "TRUE";
 		$filters[] = ($diagnostico = Globals::get('diagnostico'))? "diagnostico LIKE'%$diagnostico%'" : "TRUE";
 		$filters[] = ($cidade = Globals::get('cidade_id'))? "cidade_id = '$cidade'" : "TRUE";
+		$filters[] = ($estado = Globals::get('estado'))? "estado = '$estado'" : "TRUE";
 
 		$inicio = Globals::getDate('data_tratamento_inicio');
 		$fim = Globals::getDate('data_tratamento_fim');		
@@ -71,6 +73,15 @@ class AssistidoController extends Controller {
 		return true;
 	}
 	
+	public function actionCidade(){
+		
+		$estado = Globals::get('estado');
+		$cidade_id = Globals::get('cidade_id');
+		
+		echo Model::getOptions("cidade", "id", "nome", $cidade_id, "estado='$estado'", "nome");
+		
+	}
+	
 	/**
 	 * Cadastra ou Altera os dados de um voluntário
 	 * @return boolean
@@ -89,6 +100,7 @@ class AssistidoController extends Controller {
 		if ($this->assistido->update()){
 			
 			$responsaveis_antigos = $this->assistido->getResponsaveis();
+			$responsaveis_novos = [];
 			$assistido_id = $this->assistido->get('id');
 			
 			foreach (Globals::post('responsavel_id', []) as $i => $responsavel_id){				
@@ -119,6 +131,12 @@ class AssistidoController extends Controller {
 	
 		return false;
 	
-	}	
+	}
+	
+	public function actionDelete(){
+		$model = new Assistido($this->id);
+		$model->delete();
+		return false;
+	}
 	
 }

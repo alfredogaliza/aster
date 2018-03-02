@@ -1,5 +1,5 @@
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Título</th>
@@ -13,11 +13,12 @@
 				<td><?= $noticia->get('titulo')?></td>
 				<td><?= $noticia->getDate('datahora')?></td>				
 				<td class='text-center'>
-					<button class="btn btn-default edit" data-href="<?= Controller::route("noticia", "modal", $noticia->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+						href="<?= Controller::route("noticia", "modal", $noticia->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>
-					<a class="btn btn-default delete async" href="<?= Controller::route("noticia", "delete", $noticia->get('id')) ?>">
-						<i class="fa fa-remove"></i>
+					</a>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("noticia", "delete", $noticia->get('id')) ?>">
+						<i class="fa fa-trash"></i>
 					</a>
 				</td>
 			</tr>		

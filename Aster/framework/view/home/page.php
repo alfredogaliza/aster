@@ -18,7 +18,16 @@
 					$($(this).attr('data-target')).collapse('show');
 				});
 				$(".panel-resize .collapse").removeClass("in");					
-			}			
+			}
+
+			var timeoutId = null;
+			$("#msg-filter").keyup(function(){
+				clearTimeout(timeoutId);
+				timeoutId = setTimeout(function(){
+					$("#pag-mensagens .page").click();
+				}, 250);
+			});	
+					
 		});
 	</script>
 </head>
@@ -101,13 +110,24 @@
 					</div>
 					<div class="panel-collapse collapse in" id="mensagens">
 						<div class="panel-body">
-							<div id="div-mensagens" class="form-group"></div>
-							<a class="form-control btn btn-success edit" href="<?= Controller::route('mensagem', 'modal')?>">
-								<i class="fa fa-plus"></i> Nova Mensagem
-							</a>
+							<form id="form-mensagens" action="<?= Controller::route('mensagem', 'ajax')?>">
+								<div class="row form-group">
+									<div class="col-md-12">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-filter"></i></span>
+											<input id="msg-filter" type="text" class="form-control" name="msg-filter" placeholder="Filtrar...">
+										</div>
+									</div>
+								</div>
+								
+								<div id="div-mensagens" class="form-group"></div>							
+								<a class="form-control btn btn-success edit" href="<?= Controller::route('mensagem', 'modal')?>">
+									<i class="fa fa-plus"></i> Nova Mensagem
+								</a>
+							</form>
 						</div>
 						<div class="panel-footer text-right">
-							<ul class="pagination pagination-ajax" data-url="<?= Controller::route('mensagem', 'ajax')?>" data-target="#div-mensagens" style="margin: 0"></ul>							
+							<ul id ="pag-mensagens" class="pagination pagination-ajax" data-url="<?= Controller::route('mensagem', 'ajax')?>" data-form="#form-mensagens" data-target="#div-mensagens" style="margin: 0"></ul>							
 						</div>
 					</div>
 				</div>				

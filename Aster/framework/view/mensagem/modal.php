@@ -6,31 +6,45 @@
 				<h4 class="modal-title">Nova Mensagem</h4>
 			</div>
 			<div class="modal-body">						
-				<form class="form-horizontal" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
+				<form class="form-horizontal form-async" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
 					<input name="remetente_id" type="hidden" value="<?= $this->mensagem->get('remetente_id', Session::getVoluntario('id')) ?>">					
 					<div class="row form-group">
-						<label class="col-md-2" for="descricao">Destinatários:</label>
-						<div class="col-md-10">
-							<select name="destinatario_ids[]" class="form-control multiselect" required multiple>
-								<?php echo Model::getOptions('voluntario', 'id', 'nome', $this->mensagem->get('destinatario_id'), 'TRUE', 'nome') ?>
+						<label class="col-md-12" for="descricao">Ações</label>
+						<div class="col-md-12">
+							<select id="sel-acao" name="acao_ids[]" class="form-control multiselect" multiple>								
+								<?php echo Model::getOptions('acao', 'id', 'nome') ?>
 							</select>
 						</div>
 					</div>
 					<div class="row form-group">
-						<label class="col-md-2" for="descricao">Assunto:</label>
-						<div class="col-md-10">
-							<input name="assunto" type="text" class="form-control" value="<?php echo $this->mensagem->get('assunto')?>">
+						<label class="col-md-12" for="descricao">Perfis</label>
+						<div class="col-md-12">
+							<select id="sel-perfil" name="perfil_ids[]" class="form-control multiselect" multiple>
+								<?php echo Model::getOptions('perfil', 'id', 'descricao') ?>
+							</select>
 						</div>
 					</div>
 					<div class="row form-group">
-						<label class="col-md-2" for="descricao">Mensagem:</label>
-						<div class="col-md-10">
+						<label class="col-md-12 required" for="descricao">Destinatários</label>
+						<div class="col-md-12">
+							<select id="sel-destinatario" name="destinatario_ids[]" class="form-control multiselect" required multiple></select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-md-12 required" for="descricao">Assunto</label>
+						<div class="col-md-12">
+							<input required name="assunto" type="text" class="form-control" value="<?php echo $this->mensagem->get('assunto')?>">
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-md-12 required" for="descricao">Mensagem</label>
+						<div class="col-md-12">
 							<textarea size="4" name="texto" class="form-control" ><?php echo $this->mensagem->get('texto')?></textarea>
 						</div>
 					</div>	
 					<div class="text-right">
 						<button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>
-						<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar Mensagem</button>						
+						<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar</button>						
 					</div>
 				</form>
 			</div>
@@ -41,34 +55,29 @@
 
 	$('.multiselect').multiselect({
 		maxHeight: 200,
-		enableFiltering: true,
+		enableFiltering: false,
 		filterPlaceholder:'Pesquisar...',
 		enableCaseInsensitiveFiltering: true,
 		includeSelectAllOption: true,
-		nonSelectedText: 'Selecionar Destinos',
+		nonSelectedText: 'Selecionar',
 		numberDisplayed: 1
-	});
+	});	
 
-	$("#modal").modal("show").on('shown.bs.modal', function(){
-		container = $('#conversa');
-		scrollTo = $('#msg-<?php echo $this->mensagem->get('id')?>');		
-		container.animate({
-	    	//scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
-		});
-	});
-	
-	$("#form-mensagem").submit(function(event){
-		event.preventDefault();		
-		var form = $(this);
+	$("#sel-acao,#sel-perfil").change(function(){
+		var form = $("#form-mensagem");
 		$.ajax({
 			type: "POST",
-			url: form.attr('action'),
+			url: "<?= Controller::route('mensagem','destinatarios') ?>",
 			data: form.serialize(),
-			complete: function(){
-				//window.location.reload();
+			complete: function(data){
+				console.log(data);
+				$("#sel-destinatario").html(data.responseText).multiselect('rebuild');
 			}
 		});
-				
-		return false;
-	});	
+		
+	});
+
+	$("#sel-acao").change();
+
+	$("#modal").modal("show");	
 </script>

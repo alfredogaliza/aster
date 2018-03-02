@@ -108,6 +108,7 @@ class TarefaController extends Controller {
 		$this->tarefa->setAttrs($_POST);
 	
 		$this->tarefa->set('nome', $nome);
+		$this->tarefa->set('efetivacao', Globals::post('efetivacao')? '1' : '0');
 		$this->tarefa->set('data_fechamento', Globals::postDate('data_fechamento'));
 		$this->tarefa->set('data_agendada', Globals::postDate('data_agendada'));
 		
@@ -116,12 +117,17 @@ class TarefaController extends Controller {
 			$atribuicoes_antigas = $this->tarefa->getAtribuicoes();			
 			$tarefa_id = $this->tarefa->get('id');
 			$atribuicoes_novas = [];
+			
 			foreach (Globals::post('atribuicao_id', []) as $i => $atribuicao_id){				
 				$atribuicao = new Atribuicao($atribuicao_id);
 				$atribuicao->set('tarefa_id', $tarefa_id);
 				$atribuicao->set('voluntario_id', Globals::post('atribuicao_voluntario_id')[$i]);				
 				$atribuicao->set('concluida', Globals::post('atribuicao_concluida')[$i]);				
 				$atribuicao->update();
+				
+				if ($this->tarefa->get('efetivacao') && $atribuicao->get('concluida'))			
+					$atribuicao->getVoluntario()->efetivar($this->tarefa->get('evento_id'));			
+				
 				$atribuicoes_novas[] = $atribuicao;
 			}			
 			
@@ -137,6 +143,11 @@ class TarefaController extends Controller {
 			}
 					
 		}
+		
+		if ($this->tarefa->get('efetivacao'))
+			foreach ($this->tarefa->getAtribuicoes() as $atribuicao)
+				if ($atribuicao->get('concluida'))
+					
 	
 		return false;
 	

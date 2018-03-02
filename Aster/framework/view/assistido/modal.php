@@ -25,12 +25,16 @@
 										</div>
 									</div>
 									<div class="row form-group">
-										<div class="col-md-12">
-											<label class="required" class="required">Cidade</label><br>
-											<select name="cidade_id" class="form-control" required>
-												<option value="">Selecione uma cidade...</option>
-												<?= Model::getOptions('cidade', 'id', 'nome', $this->assistido->get('cidade_id'))?>
+										<div class="col-md-2">
+											<label class="required" class="required">Estado</label><br>
+											<select id="sel-estado" class="form-control" required>
+												<option value="">Selecione...</option>
+												<?= Model::getOptions('cidade', 'DISTINCT estado', 'estado', $this->assistido->getCidade('estado'))?>
 											</select>
+										</div>
+										<div class="col-md-10">
+											<label class="required" class="required">Cidade</label><br>
+											<select id="sel-cidade" name="cidade_id" class="form-control" required></select>
 										</div>
 									</div>
 									<div class="row form-group">
@@ -267,6 +271,16 @@
 		$clone.attr('id', '').appendTo('#responsaveis').removeClass('hidden');
 		$clone.trigger('ajax.complete');
 	});
+
+	$("#sel-estado").change(function(){
+		var estado = $(':selected', this).val();
+		$("#sel-cidade").load(
+				"<?= Controller::route('assistido', 'cidade') ?>/?estado="+
+				estado+"&cidade_id=<?= $this->assistido->get('cidade_id')?>",
+				function(){
+					$(this).prepend("<option value=''>Selecione uma cidade</option>"); 
+				});
+	}).change();
 
 	$("#modal").on('click','.responsavel-delete', function(e){
 		e.stopImmediatePropagation();

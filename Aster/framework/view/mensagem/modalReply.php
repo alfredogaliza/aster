@@ -8,7 +8,7 @@
 			<div class="modal-body">
 				<div class="pre-scrollable form-group" id="conversa">
 					<?php foreach ($this->mensagens as $mensagem):?>
-					<div class="alert <?php echo $mensagem->ownerClass()?>" id="msg-<?php echo $mensagem->get('id')?>">
+					<div class="alert <?= $mensagem->ownerClass()?>" id="msg-<?php echo $mensagem->get('id')?>">
 						<b><?php echo $mensagem->get('assunto') ?> - </b>
 						<i><?php echo $mensagem->getDate('datahora')?></i><br>
 						<div>
@@ -18,7 +18,7 @@
 							<?php if ($mensagem->get('remetente_id') == Session::getVoluntario('id') && $mensagem->get('data_leitura')):?>
 							<i class="fa fa-check"></i>
 							<?php elseif ($mensagem->get('remetente_id') == Session::getVoluntario('id')): ?>
-							<a data-toggle="tooltip" title="Excluir Mensagem" href="<?= Controller::route('mensagem', 'delete', $mensagem->get('id'))?>">
+							<a data-toggle="tooltip" class="delete-msg" title="Excluir Mensagem" href="<?= Controller::route('mensagem', 'delete', $mensagem->get('id'))?>">
 								<i class="fa fa-trash"></i>
 							</a>
 							<?php endif;?>
@@ -28,7 +28,7 @@
 				</div>		
 				<form class="form-horizontal" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
 					<input name="remetente_id" type="hidden" value="<?php echo Session::getVoluntario('id')?>">
-					<input name="destinatario_id" type="hidden" value="<?php echo $this->mensagem->get('remetente_id')?>">					
+					<input name="destinatario_ids[]" type="hidden" value="<?php echo $this->mensagem->get('remetente_id')?>">					
 					<div class="row form-group">
 						<label class="col-md-2" for="descricao">Assunto:</label>
 						<div class="col-md-10">
@@ -43,7 +43,7 @@
 					</div>	
 					<div class="text-right">
 						<button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>
-						<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar Mensagem</button>						
+						<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar</button>						
 					</div>
 				</form>
 			</div>
@@ -58,6 +58,16 @@
 		container.animate({
 	    	scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
 		});
+		$(this).trigger('ajax.complete');
+	});
+
+	$(".delete-msg").click(function(e){
+		e.preventDefault();
+		if (confirm("Deseja deletar esta mensagem?")){
+			$.get($(this).attr('href'));
+			$(this).parents('.msg').remove();
+			$("#pag-mensagens .page").click();				
+		}		
 	});
 	
 	$("#form-mensagem").submit(function(event){

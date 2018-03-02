@@ -1,5 +1,5 @@
 <div class="table-responsive">
-	<table class="table table-condensed table-hover table-striped">
+	<table class="table table-condensed  table-striped">
 		<thead>
 			<tr>
 				<th>Nome</th>
@@ -12,9 +12,12 @@
 				<td><b><?= $acao->get('nome')?></b><br>
 				<small><?= $acao->get('descricao')?></small></td>
 				<td class="text-right">
-					<button class="btn btn-default edit" data-href="<?= Controller::route("acao", "modal", $acao->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("acao", "modal", $acao->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>				
+					</a>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" data-pagination="pagination" href="<?= Controller::route("acao", "delete", $acao->get('id')) ?>">
+						<i class="fa fa-trash"></i>
+					</a>				
 				</td>
 			</tr>		
 		<?php endforeach; else :?>

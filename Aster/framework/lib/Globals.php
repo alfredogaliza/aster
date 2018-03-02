@@ -3,7 +3,12 @@
 class Globals{
 	
 	public static function get($key, $default = NULL){
-		return (isset($_GET[$key]) && $_GET[$key])? $_GET[$key] : $default;
+		if (isset($_GET[$key]) && $_GET[$key]){
+			return is_array($_GET[$key])?
+			$_GET[$key] : addslashes($_GET[$key]);
+		} else {
+			return $default;
+		}
 	}
 	
 	public static function getDate($key, $default = NULL){
@@ -12,7 +17,12 @@ class Globals{
 	}
 	
 	public static function post($key, $default = NULL){
-		return (isset($_POST[$key]) && $_POST[$key])? $_POST[$key] : $default;
+		if (isset($_POST[$key]) && $_POST[$key]){
+			return is_array($_POST[$key])?
+			$_POST[$key] : addslashes($_POST[$key]);
+		} else {
+			return $default;
+		}
 	}
 	
 	public static function postDate($key, $default = NULL){

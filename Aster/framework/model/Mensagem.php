@@ -54,7 +54,7 @@ class Mensagem extends Model {
 	public static function getAll($table = "", $filter = "TRUE"){		
 		$rows = []; $models = []; 
 		for (
-			Connection::query("SELECT id FROM mensagem WHERE $filter");
+			Connection::query("SELECT id FROM lista_mensagem WHERE $filter");
 			$row = Connection::next();
 			$rows[] = $row 			
 		);		

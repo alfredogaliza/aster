@@ -76,7 +76,7 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
-					<label>Formação</label><br> <input type="text" name="formacao" class="form-control" value="<?= Globals::get('formacao')?>" />
+					<label>Formação / Habilidade</label><br> <input type="text" name="formacao" class="form-control" value="<?= Globals::get('formacao')?>" />
 				</div>
 			</div>
 			<div class="row form-group">

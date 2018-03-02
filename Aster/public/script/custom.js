@@ -128,9 +128,14 @@ $(function(){
 		var href = $(this).attr("href")? $(this).attr("href") : $(this).attr("data-href");
 		var pagination = $(this).attr('data-pagination');
 		if (confirm("Deseja realmente executar esta operação?")){
-			$.ajax(href).done(function(){
-				if (pagination != '') $('.page', pagination).click();
-				else location.reload();
+			$.ajax(href).done(function(data){
+				if (data == ""){
+					if (pagination != '') $('.page', pagination).click();
+					else location.reload();
+				} else {
+						$("#modal").modal("hide");
+						$("#modal-container").load('/erro', {msg: data});
+				}
 			});
 		}
 	});

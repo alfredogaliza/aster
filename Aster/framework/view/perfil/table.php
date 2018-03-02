@@ -1,5 +1,5 @@
 <div class="table-responsive">
-	<table class="table table-condensed table-hover">
+	<table class="table table-condensed ">
 		<thead>
 			<tr>
 				<th>Descrição</th>
@@ -11,11 +11,12 @@
 			<tr>
 				<td><?= $perfil->get('descricao')?></td>				
 				<td class='text-center'>
-					<button class="btn btn-default edit" data-href="<?= Controller::route("perfil", "modal", $perfil->get('id')) ?>">
+					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+						href="<?= Controller::route("perfil", "modal", $perfil->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
-					</button>
-					<a class="btn btn-default delete async" href="<?= Controller::route("perfil", "delete", $perfil->get('id')) ?>">
-						<i class="fa fa-remove"></i>
+					</a>
+					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("perfil", "delete", $perfil->get('id')) ?>">
+						<i class="fa fa-trash"></i>
 					</a>
 				</td>
 			</tr>		

@@ -11,7 +11,8 @@ class Session {
 		if (!self::isStarted() || $force){
 			session_start();
 			session_id();
-		}
+		} 
+		Session::setVoluntario(new Voluntario(Session::getVoluntario('id')));
 	}
 	
 	public static function set($key, $value){

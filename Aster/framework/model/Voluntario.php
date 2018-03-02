@@ -12,6 +12,21 @@ class Voluntario extends Model {
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
 	}
+	
+	public function delete($confirm = true){
+		$this->set('excluido', 1);
+		return $this->update();
+	}
+	
+	public function isEfetivo(){		
+		return ($this->get('evento_id') || false);
+	}
+	
+	public function efetivar($evento_id){
+		if (!$this->get('evento_id'))
+			$this->set('evento_id', $evento_id)->update();
+		return;	
+	}
 
 	public function getNAtribuicoesConcluidas(){
 		$id = $this->get('id');
@@ -198,7 +213,7 @@ class Voluntario extends Model {
 		$sql = "
 		SELECT id
 		FROM voluntario 
-		WHERE email='$email' AND senha=UPPER('$senha')";
+		WHERE email='$email' AND senha=UPPER('$senha') AND ativo AND NOT excluido";
 			
 		Connection::query($sql);
 		

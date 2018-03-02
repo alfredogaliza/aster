@@ -65,6 +65,12 @@ class ResponsavelController extends Controller {
 	
 		return false;
 	
-	}	
+	}
+	
+	public function actionDelete(){
+		$model = new Responsavel($this->id);
+		$model->delete();
+		return false;
+	}
 	
 }

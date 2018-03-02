@@ -81,7 +81,7 @@
 									</div>
 									<div class="row form-group">
 										<div class="col-md-12">
-											<label>Formação Técnica/Acadêmica</label><br> <input value="<?= $this->voluntario->get('formacao')?>" name="formacao" class="form-control" type="text" />
+											<label>Formação / Habilidade</label><br> <input value="<?= $this->voluntario->get('formacao')?>" name="formacao" class="form-control" type="text" />
 										</div>
 									</div>
 									<div class="row form-group">
@@ -172,5 +172,5 @@
 	</div>
 </form>
 <script>
-	$("#modal").modal("show");
+	$("#modal").modal("show").trigger('ajax.complete');
 </script>

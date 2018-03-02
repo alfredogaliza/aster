@@ -30,7 +30,8 @@ class VoluntarioController extends Controller {
 	 * @return boolean
 	 */
 	public function actionTable(){
-		$filters = [];
+
+		$filters = ["NOT excluido"];
 		$page = Globals::post('page', Globals::get('page', 1));
 		
 		$filters[] = ($sexo = Globals::get('sexo'))? "sexo = '$sexo'" : "TRUE";
@@ -193,6 +194,12 @@ class VoluntarioController extends Controller {
 		}
 	
 		return false;
-	}	
+	}
+	
+	public function actionDelete(){
+		$voluntario = new Voluntario($this->id);
+		$voluntario->delete();
+		return false;
+	}
 	
 }

@@ -10,10 +10,16 @@ class Assistido extends Model {
 	CONST STATUS_INATIVO = 6; 
 	
 	protected $responsaveis = NULL;
+	protected $cidade = NULL;
 	
 	public function __construct($id = null, $read = true){
 		parent::__construct("assistido", $id, $read);
-	}	
+	}
+	
+	public function delete($confirm = true){
+		$this->set('excluido', 1);
+		return $this->update();
+	}
 	
 	public function getStatus(){
 		return $this->get('fase_tratamento');
@@ -39,24 +45,20 @@ class Assistido extends Model {
 		}
 		return $this->responsaveis;
 	}
+	
+	public function getCidade($field = NULL, $default = NULL){
+		if (is_null($this->cidade)){
+			$this->cidade = new Model('cidade', $this->get('cidade_id'), true);
+		}
+		return $field? $this->cidade->get($field, $default) : $this->cidade;
+	}
 
-	
-	public function hasAcao($id, $default = false){
-		$voluntario_id = $this->get('id');
-		return 
-			Model::getAllRowsSQL("SELECT 1 FROM voluntario_acao WHERE voluntario_id = '$voluntario_id' AND acao_id = '$id'")
-			|| $default;
-	}
-	
-	public function updateAcoes($ids = []){
-		return $this->updateRelationships('voluntario_acao', 'voluntario_id', 'acao_id', $ids);	
-	}
 	
 	public static function getAll($table="", $filter="TRUE"){
 		$models = array();
 		$ids = array();
 	
-		$sql = "SELECT id FROM assistido WHERE $filter";
+		$sql = "SELECT a.id FROM assistido a LEFT JOIN cidade c ON c.id = a.cidade_id WHERE $filter";
 		Connection::query($sql);
 	
 		while ($row = Connection::next()) $ids[] = $row['id'];

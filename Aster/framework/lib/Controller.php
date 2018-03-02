@@ -19,6 +19,7 @@ class Controller {
 		if ($controller == "cadastro") return true;
 		if (Session::getVoluntario('id')){
 			if ($controller == "acao") return true;
+			if ($controller == "erro") return true;
 			if ($controller == "home") return true;
 			if ($controller == "noticia") return true;
 			if ($controller == "mensagem") return true;

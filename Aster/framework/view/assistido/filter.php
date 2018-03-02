@@ -7,6 +7,11 @@
 		<div class="panel-body">
 			<div class="row form-group">
 				<div class="col-md-12">
+					<label>Nº Cadastro</label><br> <input type="text" name="id" class="form-control" value="<?= Globals::get('id')?>" />
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-12">
 					<label>Nome</label><br> <input type="text" name="nome" class="form-control" value="<?= Globals::get('nome')?>" />
 				</div>
 			</div>
@@ -28,10 +33,18 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
+					<label class="" class="required">Estado</label><br>
+					<select id="filter-estado" name="estado" class="form-control">
+						<option value="">Selecione...</option>
+						<?= Model::getOptions('cidade', 'DISTINCT estado', 'estado', NULL, "TRUE", 'estado')?>
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-12">
 					<label>Cidade</label><br>
-					<select name="cidade_id" class="form-control">
-						<option value="">Todos as cidades</option>
-						<?= Model::getOptions("cidade", "id", "nome", Globals::get('cidade_id'))?>
+					<select id="filter-cidade" name="cidade_id" class="form-control">
+						<option value="">Todos as cidades</options>
 					</select>
 				</div>
 			</div>			
@@ -97,3 +110,13 @@
 		</div>
 	</div>
 </div>
+<script>
+$("#filter-estado").change(function(){
+	var estado = $(':selected', this).val();
+	$("#filter-cidade").load(
+			"<?= Controller::route('assistido', 'cidade') ?>/?estado="+estado,
+			function(){
+				$(this).prepend("<option value=''>Todas as cidades...</option>"); 
+			});
+	}).change();
+</script>
