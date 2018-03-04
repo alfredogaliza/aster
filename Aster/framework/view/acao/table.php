@@ -12,10 +12,10 @@
 				<td><b><?= $acao->get('nome')?></b><br>
 				<small><?= $acao->get('descricao')?></small></td>
 				<td class="text-right">
-					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("acao", "modal", $acao->get('id')) ?>">
+					<a data-toggle="tool-tip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("acao", "modal", $acao->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" data-pagination="pagination" href="<?= Controller::route("acao", "delete", $acao->get('id')) ?>">
+					<a data-toggle="tool-tip" title="Excluir" class="btn btn-danger async-confirm" data-pagination="pagination" href="<?= Controller::route("acao", "delete", $acao->get('id')) ?>">
 						<i class="fa fa-trash"></i>
 					</a>				
 				</td>

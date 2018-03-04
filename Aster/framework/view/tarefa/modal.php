@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("tarefa", "gravar")?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("tarefa", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->tarefa->get('id')?>" name="id" type="hidden" />
 	<input value="<?= $this->tarefa->get('evento_id')?>" name="evento_id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">

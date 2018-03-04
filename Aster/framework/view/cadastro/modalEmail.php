@@ -6,11 +6,11 @@
 				<h4 class="modal-title">Recuperação de Senha</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="form" method="post" action="<?= Controller::route("cadastro", "emailRecuperacao")?>">					
+				<form novalidate class="form-horizontal" id="form" method="post" action="<?= Controller::route("cadastro", "emailRecuperacao")?>">					
 					<div class="form-group">
 						<label class="col-md-12">Email Cadastrado</label>
 						<div class="col-md-12">
-							<input name="email" class="form-control" required="" type="text" value="">
+							<input name="email" class="form-control" required="" type="email" value="">
 						</div>
 					</div>
 					<div class="text-right">

@@ -45,3 +45,7 @@ body { padding-top: 50px; }
 	width: 80%;
 	float: left;
 }
+
+input:invalid, textarea:invalid, select:invalid {
+  border: 1px solid orange;
+}

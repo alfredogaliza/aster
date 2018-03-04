@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("acao", "gravar")?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("acao", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->acao->get('id')?>" name="id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -17,8 +17,8 @@
 							</div>
 							<div class="row form-group">
 								<div class="col-md-12">
-									<label class="required" class="required">Descrição</label><br>
-									<textarea name="descricao" class="form-control tinymce" required><?= $this->acao->get('descricao')?></textarea>
+									<label>Descrição</label><br>
+									<textarea name="descricao" class="form-control tinymce"><?= $this->acao->get('descricao')?></textarea>
 								</div>
 							</div>								
 						</div>

@@ -27,7 +27,7 @@
 						<img src="<?php Config::baseURL()?>/image/logo.jpg" />
 					</div>
 				</div>
-				<form action="<?= Controller::route("cadastro", "novaSenha")?>" method="POST">
+				<form novalidate action="<?= Controller::route("cadastro", "novaSenha")?>" method="POST">
 					<input type="hidden" name="id" value="<?= $this->voluntario->get('id')?>" />
 					<input type="hidden" name="old_senha" value="<?= $this->voluntario->get('senha')?>" />
 					<div class="row form-group">

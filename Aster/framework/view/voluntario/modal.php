@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("voluntario", "gravar")?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("voluntario", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->voluntario->get('id')?>" name="id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -109,7 +109,7 @@
 
 									<div class="row form-group">
 										<div class="col-md-12">
-											<label class="required">Email</label><br> <input value="<?= $this->voluntario->get('email')?>" name="email" class="form-control" type="text" required />
+											<label class="required">Email</label><br> <input value="<?= $this->voluntario->get('email')?>" name="email" class="form-control" type="email" required />
 										</div>
 									</div>									
 									<div class="row form-group">

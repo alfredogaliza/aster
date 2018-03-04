@@ -28,7 +28,7 @@
 					</div>
 					<div class="panel-collapse collapse in" id="login-collapse">
 						<div class="panel-body">
-							<form action="<?= Controller::route("login", "logon")?>" method="POST">
+							<form novalidate action="<?= Controller::route("login", "logon")?>" method="POST">
 								<div class="row form-group">
 									<div class="col-md-6">
 										<div class="row form-group">
@@ -61,7 +61,7 @@
 										<div class="row form-group">
 											<div class="col-md-12">
 												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-envelope"></i></span> <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+													<span class="input-group-addon"><i class="fa fa-envelope"></i></span> <input id="email" type="email" class="form-control" name="email" placeholder="Email">
 												</div>
 											</div>
 										</div>

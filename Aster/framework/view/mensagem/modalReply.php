@@ -18,7 +18,7 @@
 							<?php if ($mensagem->get('remetente_id') == Session::getVoluntario('id') && $mensagem->get('data_leitura')):?>
 							<i class="fa fa-check"></i>
 							<?php elseif ($mensagem->get('remetente_id') == Session::getVoluntario('id')): ?>
-							<a data-toggle="tooltip" class="delete-msg" title="Excluir Mensagem" href="<?= Controller::route('mensagem', 'delete', $mensagem->get('id'))?>">
+							<a data-toggle="tool-tip" class="delete-msg" title="Excluir Mensagem" href="<?= Controller::route('mensagem', 'delete', $mensagem->get('id'))?>">
 								<i class="fa fa-trash"></i>
 							</a>
 							<?php endif;?>
@@ -26,7 +26,7 @@
 					</div>
 					<?php endforeach;?>	
 				</div>		
-				<form class="form-horizontal" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
+				<form novalidate class="form-horizontal" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
 					<input name="remetente_id" type="hidden" value="<?php echo Session::getVoluntario('id')?>">
 					<input name="destinatario_ids[]" type="hidden" value="<?php echo $this->mensagem->get('remetente_id')?>">					
 					<div class="row form-group">

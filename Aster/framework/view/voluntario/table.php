@@ -28,17 +28,17 @@
 											</td>
 				<td><?= $voluntario->getPerfil('descricao')?></td>
 				<td class='text-center'>
-					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("voluntario", "modal", $voluntario->get('id')) ?>">
+					<a data-toggle="tool-tip" title="Editar" class="btn btn-default edit" href="<?= Controller::route("voluntario", "modal", $voluntario->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
 					</a>
 												<?php if ($voluntario->get('ativo')):?>
-												<a data-toggle="tooltip" title="Bloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'block', $voluntario->get('id')) ?>"> <i class="fa fa-ban"></i>
+												<a data-toggle="tool-tip" title="Bloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'block', $voluntario->get('id')) ?>"> <i class="fa fa-ban"></i>
 						</a>
 												<?php else : ?>
-												<a  data-toggle="tooltip" title="Desbloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'unblock', $voluntario->get('id')) ?>"> <i class="fa fa-check"></i>
+												<a  data-toggle="tool-tip" title="Desbloquear" class="btn btn-default async-confirm" data-pagination="#pagination" href="<?= Controller::route('voluntario', 'unblock', $voluntario->get('id')) ?>"> <i class="fa fa-check"></i>
 							</a>
 												<?php endif;?>
-												<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("voluntario", "delete", $voluntario->get('id')) ?>">
+												<a data-toggle="tool-tip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("voluntario", "delete", $voluntario->get('id')) ?>">
 						<i class="fa fa-trash"></i>
 					</a>
 

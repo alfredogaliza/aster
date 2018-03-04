@@ -7,7 +7,7 @@
 <body>
 	<div class="container">
 		<?php View::includeView('menu/top')?>
-		<form id="form-busca" action="<?= Controller::route('assistido', 'table') ?>" method="GET">
+		<form novalidate id="form-busca" action="<?= Controller::route('assistido', 'table') ?>" method="GET">
 			<input type="hidden" name="status" value="<?= Globals::get('status', 0) ?>" id="status"/>
 			
 			<div class="row">

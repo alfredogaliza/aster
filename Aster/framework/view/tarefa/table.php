@@ -34,12 +34,12 @@
 					<?= $tarefa->getConcluidas() ?> Concluídas
 				</td>
 				<td class='text-center'>
-					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+					<a data-toggle="tool-tip" title="Editar" class="btn btn-default edit"
 						href="<?= Controller::route("tarefa", "modal", $tarefa->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
 					</a>
 					<?php if (!count($tarefa->getAtribuicoes())): ?>
-					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("tarefa", "delete", $tarefa->get('id')) ?>">
+					<a data-toggle="tool-tip" title="Excluir" class="btn btn-danger async-confirm" href="<?= Controller::route("tarefa", "delete", $tarefa->get('id')) ?>">
 						<i class="fa fa-trash"></i>
 					</a>
 					<?php endif;?>

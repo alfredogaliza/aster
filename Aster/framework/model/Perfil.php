@@ -24,9 +24,10 @@ class Perfil extends Model {
 		$values = array();
 		foreach ($recursos as $recurso_id) $values[] .= "('$perfil_id','$recurso_id')";
 		$values = implode(", ", $values);		
-			
-		$sql = "INSERT INTO perfil_recurso(perfil_id, recurso_id) VALUES $values";
-		Connection::query($sql);
+
+		if ($values) 
+			Connection::query("INSERT INTO perfil_recurso(perfil_id, recurso_id) VALUES $values");
+		
 		
 	}
 	

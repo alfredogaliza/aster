@@ -1,7 +1,7 @@
 <?php foreach ($this->atribuicoes as $atribuicao): ?>
 	<li class="list-group-item">
 		<p class="list-group-item-heading ">
-			<a data-toggle="tooltip" title="Desistir" class="pull-right edit btn btn-sm btn-danger" href="<?= Controller::route('tarefa', 'modalDesistir', $atribuicao->get('id'))?>">
+			<a data-toggle="tool-tip" title="Desistir" style="margin-left: 5px;" class="pull-right edit btn btn-sm btn-danger" href="<?= Controller::route('tarefa', 'modalDesistir', $atribuicao->get('id'))?>">
 				<i class="fa fa-thumbs-down"></i>
 			</a>
 			<strong>

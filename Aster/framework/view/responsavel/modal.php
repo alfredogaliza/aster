@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("responsavel", "gravar")?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("responsavel", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->responsavel->get('id')?>" name="id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -36,7 +36,7 @@
 					<div class="row form-group">
 						<div class="col-md-12">
 							<label>Email</label>
-							<input type="text" name="email" value="<?= $this->responsavel->get('email')?>" class="form-control">
+							<input type="email" name="email" value="<?= $this->responsavel->get('email')?>" class="form-control">
 						</div>
 					</div>
 				</div>														

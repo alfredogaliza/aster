@@ -40,7 +40,7 @@
 	<div class="container">
 		<?php View::includeView('menu/top')?>
 		<h2>Formulário de Cadastro de Voluntários</h2>
-		<form action="<?= Controller::route("cadastro", "gravar")?>" method="POST">
+		<form novalidate action="<?= Controller::route("cadastro", "gravar")?>" method="POST">
 			<ul class="nav nav-tabs">
 				<li class="active"><a id="nav-pessoal" href="#tab-pessoal" data-toggle="tab">Dados Pessoais</a></li>
 				<li class=""><a id="nav-contato" href="#tab-contato" data-toggle="tab">Contato</a></li>
