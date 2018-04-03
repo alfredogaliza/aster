@@ -1,3 +1,5 @@
+
+
 <?php
 class HomeController extends Controller {
 	public $msg   = "";

@@ -24,7 +24,7 @@
 										</div>
 										<div class="col-md-4">
 											<label class="required">Efetivação</label>
-											<select name="efetivacao" class="form-control">
+											<select name="efetivacao" class="form-control" required>
 												<option value="">Selecione</option>
 												<option value="1" <?= $this->tarefa->get('efetivacao')? 'selected' : ''?>>Sim</option>
 												<option value="0" <?= $this->tarefa->get('efetivacao')? '' : 'selected'?>>Não</option>
@@ -32,9 +32,16 @@
 										</div>
 									</div>
 									<div class="row form-group">
-										<div class="col-md-12">
+										<div class="col-md-8">
 											<label class="required" class="required">Evento</label><br>
 											<span class="form-control"><?= $this->tarefa->getEvento('nome')?></span>
+										</div>
+										<div class="col-md-4">
+											<label class="required">Autoconfirmação</label>
+											<select name="autoconfirmacao" class="form-control" required>
+												<option value="">Selecione</option>
+												<option value="1" <?= $this->tarefa->get('autoconfirmacao')? 'selected' : ''?>>Sim</option>
+												<option value="0" <?= $this->tarefa->get('autoconfirmacao')? '' : 'selected'?>>Não</option>
 											</select>
 										</div>
 									</div>

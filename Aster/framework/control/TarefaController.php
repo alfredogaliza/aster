@@ -109,6 +109,7 @@ class TarefaController extends Controller {
 	
 		$this->tarefa->set('nome', $nome);
 		$this->tarefa->set('efetivacao', Globals::post('efetivacao')? '1' : '0');
+		$this->tarefa->set('autoconfirmacao', Globals::post('autoconfirmacao')? '1' : '0');
 		$this->tarefa->set('data_fechamento', Globals::postDate('data_fechamento'));
 		$this->tarefa->set('data_agendada', Globals::postDate('data_agendada'));
 		

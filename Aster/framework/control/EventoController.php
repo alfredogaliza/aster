@@ -109,6 +109,7 @@ class EventoController extends Controller {
 				$tarefa->set('nome', mb_strtoupper(Globals::post('tarefa_nome')[$i],'utf-8'));
 				$tarefa->set('descricao', Globals::post('tarefa_descricao')[$i]);
 				$tarefa->set('efetivacao', Globals::post('tarefa_efetivacao')[$i]? '1' : '0');
+				$tarefa->set('autoconfirmacao', Globals::post('tarefa_autoconfirmacao')[$i]? '1' : '0');
 				$tarefa->set('data_fechamento', Globals::postDate('tarefa_data_fechamento')[$i]);
 				$tarefa->set('data_agendada', Globals::postDate('tarefa_data_agendada')[$i]? Globals::postDate('tarefa_data_agendada')[$i] : NULL);
 				$tarefa->set('max_atribuicoes', Globals::post('tarefa_max_atribuicoes')[$i]);
