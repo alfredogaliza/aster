@@ -36,6 +36,15 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
+					<label>Ações</label><br>
+					<select name="acao_id" class="form-control">
+						<option value="">Todas as ações</option>
+						<?= Model::getOptions("acao", "id", "nome", Globals::get('acao_id'))?>
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-12">
 					<label>Doador de Sangue</label><br>
 					<select name="doador_sangue" class="form-control">
 					<option value="">Doador / Não Doador</option>
@@ -91,18 +100,18 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>			
 			<div class="row form-group">
 				<div class="col-md-12">
-					<button class="btn btn-primary form-control" type="submit">
-						<i class="fa fa-search"></i> Buscar
+					<button class="btn btn-default form-control" type="reset">
+						<i class="fa fa-remove"></i> Limpar
 					</button>
 				</div>
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
-					<button class="btn btn-default form-control" type="reset">
-						<i class="fa fa-remove"></i> Limpar
+					<button class="btn btn-primary form-control" type="submit">
+						<i class="fa fa-search"></i> Buscar
 					</button>
 				</div>
 			</div>

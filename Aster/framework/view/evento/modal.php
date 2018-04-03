@@ -147,7 +147,7 @@
 														<div class="col-md-12">
 															<label class="required">Assistido</label> <select name="assistencia_assistido_id[]" class="form-control">
 																<option value="">Selecione um assistido</option>
-																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido OR id = '".$assistencia->get('assistido_id')."'")?>
+																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido OR id = '".$assistencia->get('assistido_id')."'", "nome")?>
 															</select>
 														</div>
 													</div>
@@ -255,7 +255,7 @@
 			<div class="col-md-12">
 				<label class="required">Assistido</label> <select name="assistencia_assistido_id[]" class="form-control">
 					<option value="">Selecione um assistido</option>
-																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido")?>
+																<?= Model::getOptions('assistido', 'id', 'nome', $assistencia->get('assistido_id'), "NOT excluido", "nome")?>
 															</select>
 			</div>
 		</div>

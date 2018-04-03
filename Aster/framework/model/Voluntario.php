@@ -9,6 +9,8 @@ class Voluntario extends Model {
 	
 	protected $recursos = NULL;
 	
+	protected $evento = NULL;
+	
 	public function __construct($id = null, $read = true){
 		parent::__construct("voluntario", $id, $read);
 	}
@@ -20,6 +22,14 @@ class Voluntario extends Model {
 	
 	public function isEfetivo(){		
 		return ($this->get('evento_id') || false);
+	}
+	
+	public function getEvento(){
+		if (is_null($this->evento)){
+			$this->evento = new Evento($this->get('evento_id'));
+		}
+		
+		return $this->evento;
 	}
 	
 	public function efetivar($evento_id){
@@ -199,7 +209,8 @@ class Voluntario extends Model {
 		$usuarios = array();
 		$ids = array();
 	
-		$sql = "SELECT id FROM voluntario WHERE $filter";
+		$sql = "SELECT id FROM voluntario
+				LEFT JOIN voluntario_acao va ON va.voluntario_id = voluntario.id WHERE $filter";
 		Connection::query($sql);
 	
 		while ($row = Connection::next()) $ids[] = $row['id'];

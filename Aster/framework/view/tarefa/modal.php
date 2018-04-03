@@ -89,7 +89,7 @@
 															<label class="required">Voluntário</label>
 															<select required name="atribuicao_voluntario_id[]" class="form-control multiselect">
 																<option value="">Selecione um voluntário</option>
-																<?= Model::getOptions('voluntario', 'id', 'nome', $atribuicao->get('voluntario_id'), "ativo AND NOT excluido  OR id = '".$atribuicao->get('voluntario_id')."'")?>
+																<?= Model::getOptions('voluntario', 'id', 'nome', $atribuicao->get('voluntario_id'), "ativo AND NOT excluido  OR id = '".$atribuicao->get('voluntario_id')."'", "nome")?>
 															</select>
 														</div>
 													</div>													
@@ -145,7 +145,7 @@
 			<div class="col-md-12">
 				<label class="required">Voluntário</label> <select required name="atribuicao_voluntario_id[]" class="form-control">
 					<option value="">Selecione um voluntário</option>
-					<?= Model::getOptions('voluntario', 'id', 'nome', NULL, "ativo AND NOT excluido")?>
+					<?= Model::getOptions('voluntario', 'id', 'nome', NULL, "ativo AND NOT excluido", "nome")?>
 				</select>
 			</div>
 		</div>													

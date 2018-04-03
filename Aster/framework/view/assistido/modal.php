@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("assistido", "gravar")?>" method="POST" class="form-async">
+<form action="<?= Controller::route("assistido", "gravar")?>" method="POST" class="" enctype="multipart/form-data">
 	<input value="<?= $this->assistido->get('id')?>" name="id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -13,6 +13,7 @@
 						<li class=""><a id="nav-contato" href="#tab-contato" data-toggle="tab">Contato</a></li>
 						<li class=""><a id="nav-tratamento" href="#tab-tratamento" data-toggle="tab">Tratamento</a></li>
 						<li class=""><a id="nav-responsaveis" href="#tab-responsaveis" data-toggle="tab">Responsáveis</a></li>
+						<li class=""><a id="nav-observacao" href="#tab-observacao" data-toggle="tab">Observações</a></li>
 					</ul>
 					<br>
 					<div class="row form-group">
@@ -48,7 +49,36 @@
 												<option value="F" <?= ($this->assistido->get('sexo') == 'F')? 'selected' : ''?>>Feminino</option>
 											</select>
 										</div>
-									</div>
+									</div>									
+									<div class="row form-group">
+										<input class="hidden" id="upload_foto" name="upload_foto" type="file" accept="image/*"/>
+										<input class="hidden" id="send_foto" name="send_foto" value="<?=$this->assistido->get('foto')? '1' : '0' ?>" />
+										<label class="col-md-12">Foto:
+											<span id="name_foto"><?= $this->assistido->get('foto', 'Nenhuma foto') ?></span>
+										</label>																	
+										<div class="col-md-3">
+											<div class="row form-group">												
+												<div class="col-md-12 form-group">																																			
+													<button type="button" class="btn btn-info form-control" id="choose_foto">
+														<i class="fa fa-upload"></i> Upload
+													</button>
+												</div>																																
+												<div class="col-md-12 form-group">
+													<button type="button" class="btn btn-danger form-control <?=$this->assistido->get('foto')? '' : 'hidden' ?>" id="delete_foto">
+														<i class="fa fa-remove"></i> Excluir
+													</button>				
+												</div>
+												<div class="col-md-12 form-group">							
+													<a target="_blank" href="<?= Controller::route('assistido', 'foto', $this->assistido->get('id'))?>" class="btn btn-success form-control <?=$this->assistido->get('foto')? '' : 'hidden' ?>" id="download_foto">
+														<i class="fa fa-download"></i> Download
+													</a>
+												</div>
+											</div>
+										</div>										
+										<div class="col-md-9" id="show_foto">
+											<img src="<?= $this->assistido->get('foto')? Controller::route('assistido', 'miniFoto', $this->assistido->get('id')) : ""?>" class="img-thumbnail" />
+										</div>																
+									</div>									
 									<div class="row form-group">
 										<div class="col-md-12">
 											<label>
@@ -201,6 +231,23 @@
 											<button type="button" class="btn btn-info" onclick="$('#nav-tratamento').click()">
 												<i class="fa fa-backward"></i> Voltar
 											</button>
+											<button type="button" class="btn btn-info" onclick="$('#nav-observacao').click()">
+												Avançar <i class="fa fa-forward"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="tab-observacao">
+									<div class="row form-group">
+										<div class="col-md-12">
+											<textarea name="observacao" class="form-control tinymce"><?= $this->assistido->get('observacao')?></textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12 text-right">
+											<button type="button" class="btn btn-info" onclick="$('#nav-responsaveis').click()">
+												<i class="fa fa-backward"></i> Voltar
+											</button>
 										</div>
 									</div>
 								</div>
@@ -304,6 +351,39 @@
 		var $panel = $(this).parents('.panel-responsavel');
 		var $body = $('.panel-body', $panel);
 		$body.slideToggle(); 
+	});
+
+	$("#modal").on('hidden.bs.modal', function(){
+		tinymce.remove();
+	});
+
+	$("#upload_foto").change(function(event){		
+		if ($(this).val() != "") {
+			$("#send_foto").attr('value', 1);
+			$("#name_foto").text(/[^\\]*$/g.exec($(this).val())[0]);
+			$("#show_foto img").attr('src', URL.createObjectURL(event.target.files[0]));
+			$("#delete_foto,#show_foto").removeClass('hidden');
+		}
+		else {
+			$("#send_foto").attr('value', 0);
+			$("#name_foto").text('Nenhuma foto');			
+			$("#delete_foto,#show_foto").addClass('hidden');
+		}
+	});
+
+	$("#delete_foto").click(function(){
+		$("#send_foto").attr('value', 0);
+		$("#name_foto").text('Nenhuma foto');
+		$("#delete_foto,#download_foto,#show_foto").addClass('hidden');
+	});
+
+	$("#choose_foto").click(function(){
+		$("#upload_foto").click();
+	});
+
+	tinymce.init({
+		  selector: '.tinymce',
+		  language: 'pt_BR'
 	});
 
 	$("#modal").modal("show").trigger('ajax.complete');

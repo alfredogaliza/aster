@@ -38,6 +38,7 @@ class VoluntarioController extends Controller {
 		$filters[] = ($nome = Globals::get('nome'))? "nome LIKE'%$nome%'" : "TRUE";
 		$filters[] = ($formacao = Globals::get('formacao'))? "formacao LIKE'%$formacao%'" : "TRUE";
 		$filters[] = ($perfil = Globals::get('perfil_id'))? "perfil_id = '$perfil'" : "TRUE";
+		$filters[] = ($acao = Globals::get('acao_id'))? "acao_id = '$acao'" : "TRUE";
 		
 		if ($doador_sangue = Globals::get('doador_sangue')){
 			switch ($doador_sangue){
@@ -87,7 +88,7 @@ class VoluntarioController extends Controller {
 		$filter = implode (" AND ", $filters);
 		$offset = "OFFSET ".($page-1)*20;
 		
-		$this->voluntarios = Voluntario::getAll("", "$filter LIMIT 20 $offset");
+		$this->voluntarios = Voluntario::getAll("", "$filter GROUP BY voluntario.id LIMIT 20 $offset");
 		$this->setView('voluntario/table');
 		return true;
 	}

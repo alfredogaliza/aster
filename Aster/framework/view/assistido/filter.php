@@ -33,6 +33,15 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-md-12">
+					<label>Ações</label><br>
+					<select name="acao_id" class="form-control">
+						<option value="">Todas as ações</option>
+						<?= Model::getOptions("acao", "id", "nome", Globals::get('acao_id'))?>
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-12">
 					<label class="" class="required">Estado</label><br>
 					<select id="filter-estado" name="estado" class="form-control">
 						<option value="">Selecione...</option>

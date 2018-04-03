@@ -55,6 +55,17 @@ class Evento extends Model {
 		}
 		return $this->assistencias;
 	}
+	public function delete($confirm = true){
+		
+		if ($confirm){
+			$id = $this->get('id');
+			$sql = "UPDATE voluntario SET evento_id = NULL WHERE evento_id = '$id'";
+			Connection::query($sql);
+			return parent::delete();
+		}
+		
+		return false;
+	}
 	
 	public static function getAll($table="", $filter="TRUE"){
 		$models = array();

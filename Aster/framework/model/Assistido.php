@@ -54,11 +54,15 @@ class Assistido extends Model {
 	}
 
 	
-	public static function getAll($table="", $filter="TRUE"){
+	public static function getAll($table="", $filter="TRUE GROUP BY a.id"){
 		$models = array();
 		$ids = array();
 	
-		$sql = "SELECT a.id FROM assistido a LEFT JOIN cidade c ON c.id = a.cidade_id WHERE $filter";
+		$sql = "SELECT a.id FROM assistido a
+				LEFT JOIN cidade c ON c.id = a.cidade_id
+				LEFT JOIN assistencia ass ON ass.assistido_id = a.id
+				LEFT JOIN evento e ON e.id = ass.evento_id
+				WHERE $filter";
 		Connection::query($sql);
 	
 		while ($row = Connection::next()) $ids[] = $row['id'];

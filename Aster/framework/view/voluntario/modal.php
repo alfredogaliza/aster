@@ -84,6 +84,14 @@
 											<label>Formação / Habilidade</label><br> <input value="<?= $this->voluntario->get('formacao')?>" name="formacao" class="form-control" type="text" />
 										</div>
 									</div>
+									<?php if ($this->voluntario->get('evento_id')):?>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label>Evento de Efetivação</label><br>
+											<?= $this->voluntario->getEvento()->get('nome')?> (<?= $this->voluntario->getEvento()->getDate('data_inicio')?>)
+										</div>
+									</div>
+									<?php endif;?>
 									<div class="row form-group">
 										<div class="col-md-12 text-right">
 											<button type="button" class="btn btn-info" onclick="$('#nav-contato').click()">
