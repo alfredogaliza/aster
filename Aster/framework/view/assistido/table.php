@@ -49,11 +49,11 @@
 							</td>
 				<td><?= $assistido->getDate('data_atualizacao')?></td>
 				<td class='text-center'>
-					<a data-toggle="tooltip" title="Editar" class="btn btn-default edit"
+					<a data-toggle="tool-tip" title="Editar" class="btn btn-default edit"
 						href="<?= Controller::route("assistido", "modal", $assistido->get('id')) ?>">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a data-toggle="tooltip" title="Excluir" class="btn btn-danger async-confirm" data-pagination="pagination" href="<?= Controller::route("assistido", "delete", $assistido->get('id')) ?>">
+					<a data-toggle="tool-tip" title="Excluir" class="btn btn-danger async-confirm" data-pagination="pagination" href="<?= Controller::route("assistido", "delete", $assistido->get('id')) ?>">
 						<i class="fa fa-trash"></i>
 					</a>							
 				</td>

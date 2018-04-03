@@ -1,7 +1,7 @@
 <?php foreach ($this->tarefas as $tarefa): ?>
 	<li class="list-group-item">
 		<p class="list-group-item-heading">
-			<a data-toggle="tooltip" title="Participar" class="pull-right edit btn btn-sm btn-success" href="<?= Controller::route('tarefa', 'modalParticipar', $tarefa->get('id'))?>">
+			<a data-toggle="tool-tip" title="Participar" style="margin-left: 5px;" class="pull-right edit btn btn-sm btn-success" href="<?= Controller::route('tarefa', 'modalParticipar', $tarefa->get('id'))?>">
 				<i class="fa fa-thumbs-up"></i>
 			</a>				
 			<strong>

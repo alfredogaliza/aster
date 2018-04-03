@@ -116,7 +116,7 @@
 									</div>
 									<div class="row form-group">
 										<div class="col-md-12">
-											<label>Email</label><br> <input value="<?= $this->assistido->get('email')?>" name="email" class="form-control" type="text" />
+											<label>Email</label><br> <input value="<?= $this->assistido->get('email')?>" name="email" class="form-control" type="email" />
 										</div>
 									</div>									
 									<div class="row form-group">
@@ -280,17 +280,17 @@
 		<div class="row form-group">
 			<div class="col-md-6">
 				<label class="required">Nome</label>
-				<input type="text" name="responsavel_nome[]" value="" class="form-control">
+				<input required type="text" name="responsavel_nome[]" value="" class="form-control">
 			</div>
 			<div class="col-md-6">
 				<label class="required">Parentesco</label>
-				<input type="text" name="responsavel_parentesco[]" value="" class="form-control">
+				<input required type="text" name="responsavel_parentesco[]" value="" class="form-control">
 			</div>
 		</div>
 		<div class="row form-group">
 			<div class="col-md-12">
 				<label class="required">Endereço</label>
-				<input name="responsavel_endereco[]" value="" class="form-control">
+				<input required name="responsavel_endereco[]" value="" class="form-control">
 			</div>
 		</div>
 		<div class="row form-group">
@@ -304,7 +304,7 @@
 		<div class="row form-group">
 			<div class="col-md-12">
 				<label>Email</label>
-				<input type="text" name="responsavel_email[]" value="" class="form-control">
+				<input type="email" name="responsavel_email[]" value="" class="form-control">
 			</div>
 		</div>
 	</div>

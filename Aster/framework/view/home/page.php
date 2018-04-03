@@ -110,7 +110,7 @@
 					</div>
 					<div class="panel-collapse collapse in" id="mensagens">
 						<div class="panel-body">
-							<form id="form-mensagens" action="<?= Controller::route('mensagem', 'ajax')?>">
+							<form novalidate id="form-mensagens" action="<?= Controller::route('mensagem', 'ajax')?>">
 								<div class="row form-group">
 									<div class="col-md-12">
 										<div class="input-group">

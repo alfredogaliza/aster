@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("tarefa", "atribuir", $this->tarefa->get('id'))?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("tarefa", "atribuir", $this->tarefa->get('id'))?>" method="POST" class="form-async">
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">

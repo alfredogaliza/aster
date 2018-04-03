@@ -23,7 +23,7 @@
 		<?php View::includeView("menu/top"); ?>
 		<div class="row form-group">
 			<div class="col-md-offset-4 col-md-4">
-				<form action="<?= Controller::route("voluntario", "novaSenha")?>" method="POST">
+				<form novalidate action="<?= Controller::route("voluntario", "novaSenha")?>" method="POST">
 					<input type="hidden" name="id" value="<?= $this->voluntario->get('id')?>" />					
 					<div class="row form-group">
 						<div class="col-md-12">

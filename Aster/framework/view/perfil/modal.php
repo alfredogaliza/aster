@@ -1,4 +1,4 @@
-<form action="<?= Controller::route("perfil", "gravar")?>" method="POST" class="form-async">
+<form novalidate action="<?= Controller::route("perfil", "gravar")?>" method="POST" class="form-async">
 	<input value="<?= $this->perfil->get('id')?>" name="id" type="hidden" />
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">

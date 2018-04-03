@@ -52,7 +52,7 @@
 		</div>
 		<?php endif;?>
 		
-		<form action="<?= Controller::route("voluntario", "gravarDadosPessoais", Session::getVoluntario('id'))?>" method="POST">
+		<form novalidate action="<?= Controller::route("voluntario", "gravarDadosPessoais", Session::getVoluntario('id'))?>" method="POST">
 			<input type="hidden" name="id" value="<?= Session::getVoluntario('id')?>" />
 			<ul class="nav nav-tabs">
 				<li class="active"><a id="nav-pessoal" href="#tab-pessoal" data-toggle="tab">Dados Pessoais</a></li>

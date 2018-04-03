@@ -6,7 +6,7 @@
 				<h4 class="modal-title">Nova Mensagem</h4>
 			</div>
 			<div class="modal-body">						
-				<form class="form-horizontal form-async" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
+				<form novalidate class="form-horizontal form-async" id="form-mensagem" method="post" action="<?php echo Controller::route("mensagem", "gravar")?>">
 					<input name="remetente_id" type="hidden" value="<?= $this->mensagem->get('remetente_id', Session::getVoluntario('id')) ?>">					
 					<div class="row form-group">
 						<label class="col-md-12" for="descricao">Ações</label>

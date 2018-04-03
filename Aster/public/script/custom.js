@@ -29,6 +29,7 @@ var datetimepicker_options = {
 function init(event){
 	
 	var parent = event.target? event.target : document;
+		
 	
 	$('[data-toggle="tooltip"]', parent).tooltip();
 	
@@ -98,7 +99,7 @@ function init(event){
 	);
 }
 
-$(function(){	
+$(function(){
 	
 	$(this).on("click", ".confirm", function(event){
 		if (confirm("Essa ação não poderá ser desfeita! Confirma a ação?")){
@@ -155,14 +156,27 @@ $(function(){
 	});
 	
 	$(this).on("submit", "form", function(){
-		$("button[type='submit']", this).html("<i class='fa fa-spinner fa-pulse'></i> Carregando...").prop("disabled", true);
-		$("input[type='submit']", this).val("Carregando...").prop("disabled", true);
+		
+		if (!$(this).hasClass("form-async")){
+			if ($(":invalid", this).length > 0){
+				alert("Verifique os campos obrigatórios e tente novamente!");			
+				return false;
+			}		
+			
+			$("button[type='submit']", this).html("<i class='fa fa-spinner fa-pulse'></i> Carregando...").prop("disabled", true);
+			$("input[type='submit']", this).val("Carregando...").prop("disabled", true);
+		}
 		return true;
 	});
 	
 	$(this).on("submit", ".form-async", function(e){
 		
-		e.preventDefault();
+		e.preventDefault();		
+		
+		if ($(":invalid", this).length > 0){
+			alert("Verifique os campos obrigatórios e tente novamente!");			
+			return false;
+		}	
 		
 		$("button[type='submit']", this).html("<i class='fa fa-spinner fa-pulse'></i> Carregando...").prop("disabled", true);
 		$("input[type='submit']", this).val("Carregando...").prop("disabled", true);
