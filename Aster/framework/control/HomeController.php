@@ -33,7 +33,10 @@ class HomeController extends Controller {
 		$filter = "($efetivo XOR efetivacao) AND status = '$aberta' AND id NOT IN (
 						SELECT tarefa_id FROM atribuicao WHERE voluntario_id = '$voluntario_id'
 					) AND acao_id IN (
-						SELECT acao_id FROM voluntario_acao WHERE voluntario_id = '$voluntario_id' 
+						SELECT acao_id FROM voluntario_acao
+						LEFT JOIN acao on acao.id = acao_id
+						WHERE voluntario_id = '$voluntario_id'
+							OR acao.obrigatorio 
 					) ORDER BY data_fechamento ASC $limit";
 		
 		$this->tarefas = Tarefa::getAll('',$filter);
