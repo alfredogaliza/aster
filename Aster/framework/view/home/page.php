@@ -7,8 +7,10 @@
 	<script src="<?= Controller::route('script','snippets/pagination.js')?>" type="text/javascript" language="javascript"></script>
 	<script src="<?= Controller::route('script','snippets/dragndrop.js')?>" type="text/javascript" language="javascript"></script>
 	
+	<!-- Multiple Select
 	<link rel="stylesheet" href="<?= Controller::route("script", "vendor/bootstrap-multiple-select/css/bootstrap-multiselect.css")?>">
 	<script src="<?= Controller::route("script", "vendor/bootstrap-multiple-select/js/bootstrap-multiselect.js")?>" type="text/javascript" language="javascript"></script>
+	-->
 	
 	<script>
 		$(document).ready(function(){
