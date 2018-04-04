@@ -55,9 +55,8 @@
 	$("#modal").modal("show").trigger('ajax.complete');
 
 	$("#modal").on('hidden.bs.modal', function(){
-		tinymce.remove();
+		//tinymce.remove();
 	});
-
 	tinymce.init({
 		  selector: '.tinymce',
 		  language: 'pt_BR'

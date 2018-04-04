@@ -51,7 +51,7 @@ class EventoController extends Controller {
 		$filter = implode (" AND ", $filters);
 		$offset = "OFFSET ".($page-1)*20;
 		
-		$this->eventos = Evento::getAll("", "$filter LIMIT 20 $offset");
+		$this->eventos = Evento::getAll("", "$filter ORDER BY id DESC LIMIT 20 $offset");
 		$this->setView('evento/table');
 		return true;
 	}

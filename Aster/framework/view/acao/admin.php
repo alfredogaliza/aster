@@ -3,7 +3,8 @@
 <head>	
 	<?php View::includeView("html/head"); ?>
 	<script src="<?= Controller::route('script','snippets/pagination.js')?>" type="text/javascript" language="javascript"></script>
-	<script src="<?= Controller::route('script','vendor/tinymce/tinymce.min.js')?>" type="text/javascript" language="javascript"></script>		
+	<script src="<?= Controller::route('script','vendor/tinymce/tinymce.min.js')?>" type="text/javascript" language="javascript"></script>
+
 </head>
 <body>
 	<div class="container">
