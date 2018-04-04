@@ -11,7 +11,7 @@
 					<div class="row form-group">
 						<label class="col-md-12" for="descricao">Ações</label>
 						<div class="col-md-12">
-							<select id="sel-acao" name="acao_ids[]" class="form-control multiselect" multiple>								
+							<select id="sel-acao" name="acao_ids[]" class="form-control " multiple>								
 								<?php echo Model::getOptions('acao', 'id', 'nome') ?>
 							</select>
 						</div>
@@ -19,7 +19,7 @@
 					<div class="row form-group">
 						<label class="col-md-12" for="descricao">Perfis</label>
 						<div class="col-md-12">
-							<select id="sel-perfil" name="perfil_ids[]" class="form-control multiselect" multiple>
+							<select id="sel-perfil" name="perfil_ids[]" class="form-control " multiple>
 								<?php echo Model::getOptions('perfil', 'id', 'descricao') ?>
 							</select>
 						</div>
@@ -27,7 +27,7 @@
 					<div class="row form-group">
 						<label class="col-md-12 required" for="descricao">Destinatários</label>
 						<div class="col-md-12">
-							<select id="sel-destinatario" name="destinatario_ids[]" class="form-control multiselect" required multiple></select>
+							<select id="sel-destinatario" name="destinatario_ids[]" class="form-control" required multiple></select>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -53,7 +53,7 @@
 </div>
 <script>
 
-	$('.multiselect').multiselect({
+	/*$('.multiselect').multiselect({
 		maxHeight: 200,
 		enableFiltering: false,
 		filterPlaceholder:'Pesquisar...',
@@ -61,7 +61,7 @@
 		includeSelectAllOption: true,
 		nonSelectedText: 'Selecionar',
 		numberDisplayed: 1
-	});	
+	});	*/
 
 	$("#sel-acao,#sel-perfil").change(function(){
 		var form = $("#form-mensagem");
@@ -70,8 +70,9 @@
 			url: "<?= Controller::route('mensagem','destinatarios') ?>",
 			data: form.serialize(),
 			complete: function(data){
-				console.log(data);
-				$("#sel-destinatario").html(data.responseText).multiselect('rebuild');
+				//console.log(data);
+				$("#sel-destinatario").html(data.responseText)
+				//.multiselect('rebuild');
 			}
 		});
 		

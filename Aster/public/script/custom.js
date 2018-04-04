@@ -33,9 +33,9 @@ function init(event){
 	
 	$('[data-toggle="tooltip"]', parent).tooltip();
 	
-	$("[multiple]", parent).multiselect({
-		numberDisplayed: 1
-	});
+	//$("[multiple]", parent).multiselect({
+	//	numberDisplayed: 1
+	//});
 	
 	$('.dateyear', parent).datetimepicker($.extend(datetimepicker_options, {format: 'YYYY'}));
 	$('.date', parent).datetimepicker($.extend(datetimepicker_options, {format: 'DD/MM/YYYY'}));
