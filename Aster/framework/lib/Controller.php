@@ -10,11 +10,19 @@ class Controller {
 		$this->action = $action;
 		Session::start();
 		
-		if (self::grantPermission($name, $action) || Session::getVoluntario()->hasPermission($name, $action));
-		else self::dispatch("login");
+		//echo self::grantPermission($name, $action);
+		//echo $name, ' ', $action;
+		//die();
+		
+		if (
+				!self::grantPermission($name, $action) &&
+				!Session::getVoluntario()->hasPermission($name, $action)
+		)
+			self::dispatch("login");
 	}
 	
 	private function grantPermission($controller, $action){
+		if ($controller == "default") return true;
 		if ($controller == "login") return true;
 		if ($controller == "cadastro") return true;
 		if (Session::getVoluntario('id')){

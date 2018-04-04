@@ -9,20 +9,37 @@
 				</div>
 				<div class="modal-body">					
 					<div class="row form-group">
-						<div class="col-md-12">
-							<div class="row form-group">
-								<div class="col-md-12">
-									<label class="required" class="required">Nome</label><br> <input name="nome" class="form-control" required type="text" value="<?= $this->acao->get('nome')?>" />
-								</div>
-							</div>
-							<div class="row form-group">
-								<div class="col-md-12">
-									<label>Descrição</label><br>
-									<textarea name="descricao" class="form-control tinymce"><?= $this->acao->get('descricao')?></textarea>
-								</div>
-							</div>								
+						<div class="col-md-12">							
+							<label class="required" class="required">Nome</label><br>
+							<input name="nome" class="form-control" required type="text" value="<?= $this->acao->get('nome')?>" />
 						</div>
 					</div>
+					<div class="row form-group">
+						<div class="col-md-6">
+							<label class="required">Obrigatório</label>
+							<select name="obrigatorio" class="form-control" required>
+								<option value="">Selecione</option>
+								<option value="1" <?= $this->acao->get('obrigatorio')? 'selected' : ''?>>Sim</option>
+								<option value="0" <?= $this->acao->get('obrigatorio')? '' : 'selected'?>>Não</option>
+							</select>
+							<small>Ações obrigatórias sempre são vinculadas aos voluntários</small>
+						</div>
+						<div class="col-md-6">
+							<label class="required">Privado</label>
+							<select name="privado" class="form-control" required>
+								<option value="">Selecione</option>
+								<option value="1" <?= $this->acao->get('privado')? 'selected' : ''?>>Sim</option>
+								<option value="0" <?= $this->acao->get('privado')? '' : 'selected'?>>Não</option>
+							</select>
+							<small>Ações privadas só podem ser vinculadas a voluntários pela administração</small>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-12">
+							<label>Descrição</label><br>
+							<textarea name="descricao" class="form-control tinymce"><?= $this->acao->get('descricao')?></textarea>
+						</div>
+					</div>								
 				</div>
 				<div class="modal-footer text-right">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

@@ -98,7 +98,7 @@ class Config{
 	}
 	
 	public static function baseURL(){
-		return self::PROTOCOL . $_SERVER['SERVER_NAME'] . self::BASE_URL; 
+		return self::PROTOCOL . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . self::BASE_URL; 
 	}
 	
 

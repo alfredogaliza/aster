@@ -141,8 +141,8 @@
 												<?php foreach (Model::getAll('acao') as $i => $acao):?>
 												<div class="panel panel-default">
 													<div class="panel-heading" role="tab" id="titulo-acao-<?= $acao->get('id') ?>">
-														<h4 class="panel-title">
-															<input type="checkbox" class="cb-interesse" name="acao_id[]" value="<?= $acao->get('id') ?>" <?= $this->voluntario->hasAcao($acao->get('id'), true)? 'checked' : ''?>> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#acao-<?= $acao->get('id') ?>" aria-expanded="true" aria-controls="acao-<?= $acao->get('id') ?>">																									
+														<h4 class="panel-title <?= $acao->get('obrigatorio')? 'required' : '' ?>">
+															<input type="checkbox" class="cb-interesse" name="acao_id[]" value="<?= $acao->get('id') ?>" <?= ($this->voluntario->hasAcao($acao->get('id'), false) || $acao->get('obrigatorio'))? 'checked' : ''?> <?= $acao->get('obrigatorio')? 'onclick="return false;"' : '' ?>>																									
 																<?= $acao->get('nome')?>
 															</a>
 														</h4>

@@ -158,11 +158,11 @@
 										<label><input type="checkbox" onclick="$('.cb-interesse').prop('checked', $(this).prop('checked'))"> Selecionar Todos</label>
 									</p>
 									<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height: 300px; overflow-y: scroll">
-										<?php foreach (Model::getAll('acao') as $i => $acao):?>
+										<?php foreach (Model::getAll('acao', 'NOT privado') as $i => $acao):?>
 										<div class="panel panel-default">
 											<div class="panel-heading" role="tab" id="titulo-acao-<?= $acao->get('id') ?>">
-												<h4 class="panel-title">
-													<input type="checkbox" class="cb-interesse" name="acao_id[]" value="<?= $acao->get('id') ?>" <?= $this->voluntario->hasAcao($acao->get('id'), false)? 'checked' : ''?> > 
+												<h4 class="panel-title <?= $acao->get('obrigatorio')? 'required' : '' ?>">
+													<input type="checkbox" class="<?= $acao->get('obrigatorio')? '' : 'cb-interesse' ?>" name="acao_id[]" value="<?= $acao->get('id') ?>" <?= ($this->voluntario->hasAcao($acao->get('id'), false) || $acao->get('obrigatorio'))? 'checked' : ''?> <?= $acao->get('obrigatorio')? 'onclick="return false;"' : '' ?>> 
 													<a role="button" data-toggle="collapse" data-parent="#accordion" href="#acao-<?= $acao->get('id') ?>" aria-expanded="true" aria-controls="acao-<?= $acao->get('id') ?>">																									
 														<?= $acao->get('nome') ?>
 													</a>													

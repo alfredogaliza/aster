@@ -4,9 +4,11 @@
 			<a data-toggle="tooltip" title="Desistir" style="margin-left: 5px;" class="pull-right edit btn btn-sm btn-danger" href="<?= Controller::route('tarefa', 'modalDesistir', $atribuicao->get('id'))?>">
 				<i class="fa fa-thumbs-down"></i>
 			</a>
-			<a data-toggle="tooltip" title="Confirmar" style="margin-left: 5px;" class="pull-right edit btn btn-sm btn-success" href="<?= Controller::route('tarefa', 'modalConfirmar', $atribuicao->get('id'))?>">
+			<?php if ($atribuicao->getTarefa('autoconfirmacao')):?>
+			<a data-toggle="tooltip" title="Confirmar execução" style="margin-left: 5px;" class="pull-right edit btn btn-sm btn-success" href="<?= Controller::route('tarefa', 'modalConfirmar', $atribuicao->get('id'))?>">
 				<i class="fa fa-check"></i>
 			</a>
+			<?php endif; ?>
 			<strong>
 				<?= $atribuicao->getTarefa()->getEvento('nome') ?> <br/>
 				<small><?= $atribuicao->getTarefa('nome') ?></small>				

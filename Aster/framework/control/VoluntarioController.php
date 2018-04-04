@@ -152,7 +152,22 @@ class VoluntarioController extends Controller {
 		$this->voluntario->set('data_nascimento', Globals::postDate('data_nascimento'));
 			
 		if ($success = $this->voluntario->update()){
-			$success = $this->voluntario->updateAcoes(Globals::post('acao_id', []));
+			
+			$acao_ids = implode("', '", Globals::post('acao_id', []));
+			
+			$sql = 
+			"DELETE FROM voluntario_acao WHERE voluntario_id = '{$this->id}' AND acao_id NOT IN (
+				SELECT id FROM acao WHERE id IN ('$acao_ids') OR privado OR obrigatorio
+			)";
+			
+			Connection::query($sql);
+			
+			$sql = "REPLACE INTO voluntario_acao(voluntario_id, acao_id)
+						SELECT '{$this->id}' as voluntario_id, id as acao_id
+						FROM acao WHERE id IN ('$acao_ids') OR obrigatorio
+			";
+			
+			Connection::query($sql);
 		}	
 
 		Session::setVoluntario($this->voluntario);

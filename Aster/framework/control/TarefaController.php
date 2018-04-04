@@ -32,6 +32,13 @@ class TarefaController extends Controller {
 		return true;
 	}
 	
+	public function actionModalConfirmar(){
+		$this->atribuicao = new Atribuicao($this->id);
+		$this->tarefa = $this->atribuicao->getTarefa();
+		$this->setView('tarefa/modalConfirmar');
+		return true;
+	}
+	
 	public function actionAtribuir(){
 		$atribuicao = new Atribuicao();
 		$atribuicao->set('tarefa_id', $this->id);
@@ -45,6 +52,13 @@ class TarefaController extends Controller {
 	public function actionDesistir(){
 		$atribuicao = new Atribuicao($this->id);
 		$atribuicao->delete();
+		return false;
+	}
+	
+	public function actionConfirmar(){
+		$atribuicao = new Atribuicao($this->id);
+		$atribuicao->set('concluida', '1');
+		$atribuicao->update();
 		return false;
 	}
 	
